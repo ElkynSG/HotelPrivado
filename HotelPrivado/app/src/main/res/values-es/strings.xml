@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Hotel Privado</string>
+    <!--    nombre hotel    -->
+    <string name="name_hotel">PRIVADO</string>
+    <string name="sub_name_hotel">Boutique Rooms</string>
+    <!--   activity_main    -->
+    <string name="idioma">ESPAÑOL</string>
+    <string name="text_msm_es">Antes de realizar la compra verifique que el producto este en existencia</string>
+    <string name="text_msm_in">Before making the purchase verify that the product is in stock</string>
+
+    <!--   activity_select    -->
+    <string name="id_alcohol">PRODUCTOS CON ALCOHOL</string>
+    <string name="id_sin_alcohol">PRODUCTOS SIN ALCOHOL</string>
+    <string name="id_snaks">SNACKS</string>
+    <string name="id_souvenir">SOUVENIRS</string>
+    <string name="dialog_error">Producto ya agregado, verifica carrito de compras</string>
+    <string name="dialog_errornodis">Producto no disponible</string>
+    <!--TODO: Strings DIALOG SALE -->
+        <string name="dialog_sale_seguir">Seguir Comprando</string>
+        <string name="dialog_sale_pagar">Pagar</string>
+        <string name="dialog_sale_title">Lista de compras</string>
+        <string name="dialog_sale_product">Producto</string>
+        <string name="dialog_item_agregar">Agregar</string>
+        <string name="dialog_sale_retira">TU COMPRA FUE EXITOSA\n RETIRA TU(S) PRODUCTO(S)</string>
+        <string name="sale_fail">TRANSACCION FALLIDA</string>
+        <string name="sale_process">TRANSACCION EN PROCESO</string>
+        <string name="sale_error_conect">Error conectando con el dispositivo</string>
+
+    <!--TODO: Strings SALE -->
+    <string name="sale_monto_total">Monto a Pagar</string>
+    <string name="sale_pagar">Pagar</string>
+    <string name="sale_cancelar">Cancelar</string>
+    <string name="bt_no_config">Bluetooth NO configurado</string>
+    <string name="instruccion">Por favor siga las instrucciones en el datafono .....</string>
+    <string name="instrucc_voz1">Por favor siga las instrucciones en la terminal de pago</string>
+    <string name="instrucc_recoja">Transaccion exitosa. Por favor recoja sus productos</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+
+</resources>

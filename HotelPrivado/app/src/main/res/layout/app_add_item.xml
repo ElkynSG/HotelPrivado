@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+	android:background="@drawable/imagebackground">
+
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textColor="@color/black"
+		android:text="@string/dialog_sale_title"
+		android:gravity="center"
+		android:textSize="30sp"
+		android:padding="10dp"
+		android:background="#EEE"/>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical">
+
+	<GridView
+		android:id="@+id/gridSale"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_weight="1"
+		android:numColumns="1"
+		android:paddingLeft="20dp"
+		android:paddingRight="20dp"
+		android:horizontalSpacing="40dp"
+		android:verticalSpacing="40dp" />
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:padding="10dp">
+
+		<Button
+			android:id="@+id/bt_seguir"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:text="@string/dialog_sale_seguir"
+			android:textColor="@color/white"
+			android:drawableLeft="@drawable/seguir"
+			android:background="#EE0303"
+			android:paddingRight="10dp"
+			android:paddingLeft="10dp"
+			android:textSize="25sp"
+			android:layout_marginRight="10dp"/>
+
+		<Button
+			android:id="@+id/bt_sale"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:textSize="25sp"
+			android:text="@string/dialog_sale_pagar"
+			android:textColor="@color/white"
+			android:drawableLeft="@drawable/pay"
+			android:background="#5AD255"
+			android:paddingRight="10dp"
+			android:paddingLeft="10dp"
+			android:layout_marginLeft="10dp"/>
+
+	</LinearLayout>
+	</LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Private Hotel</string>
+
+    <!--   activity_main    -->
+    <string name="idioma">INGLES</string>
+    <string name="text_msm_es">Antes de realizar la compra verifique que el producto este en existencia</string>
+    <string name="text_msm_in">Before making the purchase verify that the product is in stock</string>
+
+    <!--   nombre hotel   -->
+    <string name="name_hotel">PRIVADO</string>
+    <string name="sub_name_hotel">Boutique Rooms</string>
+
+    <!--   activity_select    -->
+    <string name="id_alcohol">COCKTAILS &amp; WINES</string>
+    <string name="id_sin_alcohol">NON ALCOHOLICS DRINKS</string>
+    <string name="id_snaks">SNACKS</string>
+    <string name="id_souvenir">SOUVENIRS</string>
+    <string name="dialog_error">Product already added, check shopping cart</string>
+    <string name="dialog_errornodis">Product not avilable</string>
+        <!--TODO: Strings DIALOG SALE -->
+        <string name="dialog_sale_seguir">Continue Shopping</string>
+        <string name="dialog_sale_pagar">Pay</string>
+        <string name="sale_cancelar">Cancel</string>
+        <string name="dialog_sale_title">Shopping List</string>
+        <string name="dialog_sale_product">Product</string>
+        <string name="instruccion">Please follow the instructions on the smart POS ......</string>
+        <string name="dialog_item_agregar">Add</string>
+        <string name="dialog_sale_retira">OUR PURCHASE WAS SUCCESSFUL\n WITHDRAW YOUR PRODUCT(S)</string>
+        <string name="sale_fail">TRANSACTION FAIL</string>
+        <string name="sale_process">TRANSACTION IN PROCESS</string>
+        <string name="sale_error_conect">Error connecting to the device</string>
+
+    <!--TODO: Strings SALE -->
+    <string name="sale_monto_total">Total payable</string>
+    <string name="sale_pagar">Pay</string>
+    <string name="bt_no_config">Bluetooth NOT configured</string>
+    <string name="instrucc_voz1">Please follow the instructions at the payment terminal.</string>
+    <string name="instrucc_recoja">Successful transaction. Please pick up your products</string>
+</resources>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/white"
+	tools:context=".testContra">
+
+	<ImageView
+		android:id="@+id/produ_iconImage"
+		android:layout_width="200dp"
+		android:layout_height="300dp"
+
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintHorizontal_bias="0"
+		/>
+
+	<TextView
+		android:id="@+id/prod_testName"
+		android:layout_width="400dp"
+		android:layout_height="wrap_content"
+		android:textColor="@color/black"
+		android:text="grd"
+		android:textSize="28sp"
+		android:layout_marginBottom="20dp"
+
+		app:layout_constraintStart_toEndOf="@+id/produ_iconImage"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toTopOf="@+id/prod_testDescrip"
+		app:layout_constraintVertical_bias="0"
+		app:layout_constraintHorizontal_bias="0"
+		/>
+
+	<TextView
+		android:id="@+id/prod_testDescrip"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textColor="@color/black"
+		android:text="grd"
+		android:textSize="18sp"
+
+		app:layout_constraintStart_toEndOf="@+id/produ_iconImage"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/prod_testName"
+		app:layout_constraintBottom_toTopOf="@+id/prod_testPrecio"
+		app:layout_constraintVertical_bias="0"
+		app:layout_constraintHorizontal_bias="0"
+		/>
+
+	<TextView
+		android:id="@+id/prod_testPrecio"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textColor="@color/black"
+		android:textStyle="bold"
+		android:text="$10.234"
+		android:textSize="22sp"
+
+		app:layout_constraintStart_toEndOf="@+id/produ_iconImage"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/prod_testDescrip"
+		app:layout_constraintBottom_toTopOf="@+id/prod_btMenos"
+		app:layout_constraintVertical_bias="0"
+		app:layout_constraintHorizontal_bias="0"
+		/>
+
+	<Button
+		android:id="@+id/prod_btMenos"
+		android:layout_width="60dp"
+		android:layout_height="60dp"
+		android:textSize="25sp"
+		android:text="-"
+
+		app:layout_constraintStart_toEndOf="@+id/produ_iconImage"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/prod_testPrecio"
+		app:layout_constraintBottom_toTopOf="@+id/prod_bt_seguir"
+		app:layout_constraintVertical_bias="0"
+		app:layout_constraintHorizontal_bias="0"
+		/>
+
+	<TextView
+		android:id="@+id/prod_tvSuma"
+		android:layout_width="80dp"
+		android:layout_height="60dp"
+		android:gravity="center"
+
+		android:textColor="@color/black"
+		android:textSize="20sp"
+		android:layout_marginBottom="0dp"
+		android:text="16"
+
+		app:layout_constraintStart_toEndOf="@+id/prod_btMenos"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/prod_testPrecio"
+		app:layout_constraintBottom_toTopOf="@+id/prod_bt_seguir"
+		app:layout_constraintHorizontal_bias="0"
+		/>
+
+
+	<Button
+		android:id="@+id/prod_btMas"
+		android:layout_width="60dp"
+		android:layout_height="60dp"
+		android:layout_marginBottom="0dp"
+		android:textSize="25sp"
+		android:text="+"
+
+		app:layout_constraintStart_toEndOf="@+id/prod_tvSuma"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/prod_testPrecio"
+		app:layout_constraintBottom_toTopOf="@+id/prod_bt_seguir"
+
+		app:layout_constraintHorizontal_bias="0"
+		/>
+
+
+	<Button
+		android:id="@+id/prod_bt_seguir"
+		android:layout_width="0dp"
+		android:layout_height="80dp"
+		android:text="@string/dialog_sale_seguir"
+		android:textColor="@color/white"
+		android:drawableLeft="@drawable/seguir"
+		android:background="#EE0303"
+		android:paddingRight="10dp"
+		android:paddingLeft="10dp"
+		android:textSize="25sp"
+		android:layout_marginRight="10dp"
+
+
+		app:layout_constraintStart_toEndOf="@+id/produ_iconImage"
+		app:layout_constraintEnd_toStartOf="@+id/prod_bt_sale"
+		app:layout_constraintTop_toBottomOf="@+id/prod_btMenos"
+		app:layout_constraintBottom_toBottomOf="parent"
+		/>
+
+	<Button
+		android:id="@+id/prod_bt_sale"
+		android:layout_width="0dp"
+		android:layout_height="80dp"
+		android:textSize="25sp"
+		android:text="@string/dialog_item_agregar"
+		android:textColor="@color/white"
+		android:drawableLeft="@drawable/ic_carrito"
+		android:background="#5AD255"
+		android:paddingRight="10dp"
+		android:paddingLeft="10dp"
+		android:layout_marginLeft="10dp"
+
+		app:layout_constraintStart_toEndOf="@+id/prod_bt_seguir"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/prod_btMenos"
+		app:layout_constraintBottom_toBottomOf="parent"
+		/>
+
+	<ImageView
+		android:id="@+id/prod_x"
+		android:layout_width="40dp"
+		android:layout_height="40dp"
+		android:background="@drawable/radius_x"
+		android:src="@drawable/close"
+
+		app:layout_constraintTop_toTopOf="@id/produ_iconImage"
+		app:layout_constraintBottom_toBottomOf="@id/produ_iconImage"
+		app:layout_constraintEnd_toEndOf="@id/produ_iconImage"
+		app:layout_constraintStart_toStartOf="@id/produ_iconImage"
+		app:layout_constraintVertical_bias="0"
+		app:layout_constraintHorizontal_bias="1"
+		/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#0000"
+    tools:context=".ReportActivity">
+
+    <TextView
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:id="@+id/tv_re_title"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:text="Reporte"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="normal|bold"
+        android:background="#2A4F9E"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tv_re_msm"/>
+
+    <TextView
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:id="@+id/tv_re_msm"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="Nombre del reporte"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="normal"
+        android:background="@color/white"
+
+        app:layout_constraintTop_toBottomOf="@id/tv_re_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/ed_re_name"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideVertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <EditText
+        android:id="@+id/ed_re_name"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="100dp"
+        android:background="@color/white"
+        android:gravity="right|center"
+        android:maxLength="20"
+        android:hint="Nombre"
+        android:textColorHint="#ccc"
+        android:paddingLeft="20dp"
+        android:singleLine="true"
+        android:textSize="30sp"
+        android:textStyle="normal|bold"
+        android:inputType="textFilter"
+
+        app:layout_constraintTop_toBottomOf="@id/tv_re_msm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideVertical"/>
+
+    <EditText
+        android:id="@+id/ed_no_edit"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginRight="100dp"
+        android:background="@color/white"
+        android:gravity="left|center"
+        android:maxLength="20"
+        android:hint="Nombre"
+        android:text=".txt"
+        android:paddingRight="20dp"
+        android:singleLine="true"
+        android:textSize="30sp"
+        android:textStyle="normal|bold"
+        android:editable="false"
+
+        app:layout_constraintTop_toBottomOf="@id/tv_re_msm"
+        app:layout_constraintStart_toEndOf="@id/guideVertical"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    <Button
+        android:id="@+id/btaceptar"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:background="#5AD255"
+        android:textSize="30sp"
+        android:textColor="@color/white"
+        android:text="ACEPTAR"
+        android:layout_margin="20dp"
+
+        app:layout_constraintTop_toBottomOf="@id/ed_re_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btcancel"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <Button
+        android:id="@+id/btcancel"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:background="#EE0303"
+        android:textSize="30sp"
+        android:textColor="@color/white"
+        android:text="CANCELAR"
+        android:layout_margin="20dp"
+
+        app:layout_constraintTop_toBottomOf="@id/ed_re_name"
+        app:layout_constraintStart_toEndOf="@id/btaceptar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

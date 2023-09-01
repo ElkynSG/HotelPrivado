@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+	android:background="@drawable/bagroundlogin">
+
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textColor="@color/black"
+		android:text="Cambio de contraseña"
+		android:gravity="center"
+		android:textSize="30sp"
+		android:padding="10dp"
+		android:background="#aaa"/>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:gravity="center"
+		android:padding="20dp"
+		android:orientation="vertical">
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:background="@drawable/bagroundlogin"
+			android:layout_marginBottom="20dp"
+			>
+
+			<ImageView
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				android:src="@drawable/login"
+
+				android:layout_margin="5dp"/>
+
+			<EditText
+				android:id="@+id/ed_actualPass"
+				android:layout_width="300dp"
+				android:layout_height="wrap_content"
+				android:hint="Contraseña Actual"
+				android:maxLength="15"
+				android:textColor="@color/black"
+				android:inputType="text"/>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:background="@drawable/bagroundlogin"
+			android:layout_marginBottom="20dp">
+
+			<ImageView
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				android:src="@drawable/pass"
+				android:layout_margin="5dp"/>
+
+			<EditText
+				android:id="@+id/ed_passViejo"
+				android:layout_width="300dp"
+				android:layout_height="wrap_content"
+				android:hint="Nueva Contraseña"
+				android:maxLength="15"
+				android:textColor="@color/black"
+				android:inputType="text"/>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:background="@drawable/bagroundlogin"
+			android:layout_marginBottom="20dp">
+
+			<ImageView
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				android:src="@drawable/pass"
+				android:layout_margin="5dp"/>
+
+			<EditText
+				android:id="@+id/ed_passViejo2"
+				android:layout_width="300dp"
+				android:layout_height="wrap_content"
+				android:hint="RepitaContraseña"
+				android:maxLength="15"
+				android:textColor="@color/black"
+				android:inputType="text"/>
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="360dp"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:gravity="center"
+			>
+			<Button
+				android:id="@+id/bt_cancel_pass"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:background="#B89660"
+				android:layout_marginRight="10dp"
+				android:text="Cancelar"/>
+
+			<Button
+				android:id="@+id/bt_chage_pass"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:layout_marginLeft="10dp"
+				android:background="#B89660"
+				android:text="Registrar"/>
+
+		</LinearLayout>
+
+
+	</LinearLayout>
+
+</LinearLayout>
