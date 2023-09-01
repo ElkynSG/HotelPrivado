@@ -32,6 +32,7 @@ public class UsbActivity extends AppCompatActivity {
     private String numAprobacion;
     private String recibo;
     private String FechaTr;
+    // test de commit para prueba
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,7 +164,7 @@ public class UsbActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                3
+
 
                             }
                         });
