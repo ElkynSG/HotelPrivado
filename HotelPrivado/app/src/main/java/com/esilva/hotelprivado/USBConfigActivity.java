@@ -40,6 +40,8 @@ public class USBConfigActivity extends AppCompatActivity implements  View.OnClic
         int port;
         UsbSerialDriver driver;
 
+
+        // ESTE ES UNA PRUEBA PARA EL COMMIT
         ListItemUSB(UsbDevice device, int port, UsbSerialDriver driver) {
             this.device = device;
             this.port = port;
