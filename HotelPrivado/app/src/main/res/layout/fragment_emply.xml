@@ -6,6 +6,5 @@
     android:background="@drawable/fondo"
     tools:context=".fragments.EmplyFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
 </FrameLayout>

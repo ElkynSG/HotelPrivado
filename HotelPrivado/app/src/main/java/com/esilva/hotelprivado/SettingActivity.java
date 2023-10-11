@@ -4,8 +4,10 @@ import static com.esilva.hotelprivado.Util.Constantes.CHANNEL_NOTIFICATION;
 import static com.esilva.hotelprivado.Util.Constantes.CONNECT_BT;
 import static com.esilva.hotelprivado.Util.Constantes.CONNECT_USB;
 import static com.esilva.hotelprivado.Util.Constantes.DISCONNECT_TIMEOUT;
+import static com.esilva.hotelprivado.Util.Constantes.REPORT_ALL;
 import static com.esilva.hotelprivado.Util.Constantes.REPORT_AUTO_OFF;
 import static com.esilva.hotelprivado.Util.Constantes.REPORT_AUTO_ON;
+import static com.esilva.hotelprivado.Util.Constantes.REPORT_INI;
 import static com.esilva.hotelprivado.Util.Constantes.REP_AUTO;
 import static com.esilva.hotelprivado.Util.Constantes.SHA_BASE;
 import static com.esilva.hotelprivado.Util.Constantes.SHA_IDIOMA;
@@ -45,7 +47,9 @@ import com.esilva.hotelprivado.application.privadoApplication;
 import com.esilva.hotelprivado.db.AdminBaseDatos;
 import com.esilva.hotelprivado.inventario.CargaInventario;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -196,6 +200,28 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 break;
         }
     }
+    private String getNameFile(){
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+        SimpleDateFormat sdf;
+        sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm");
+        return "ReporteCierre "+sdf.format(date)+".txt";
+    }
+
+    private void guardarReporteTotal() {
+        Reporte reporte;
+        reporte = new Reporte(SettingActivity.this,this,true,true,true,true);
+        Log.d("DP_DLOG","guardarReporteTotal "+"reporte");
+        reporte.setIsShowMessage(false);
+        if(reporte.generarReporte(REPORT_ALL)) {
+            Log.d("DP_DLOG","guardarReporteTotal "+"name "+ getNameFile());
+            reporte.setNameFile(getNameFile());
+            Boolean aBoolean = reporte.grabaReporte();
+            Log.d("DP_DLOG","guardarReporteTotal "+"grabar reporte "+aBoolean);
+        }else{
+            Log.d("DP_DLOG","guardarReporteTotal "+"no genera reporte");
+        }
+    }
 
     private void showDialog(String title,String message){
         customDialog = new Dialog(SettingActivity.this);
@@ -216,6 +242,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         customDialog.findViewById(R.id.btn_dialog_si).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                guardarReporteTotal();
                 customDialog.dismiss();
                 if(reemplazarProdu()){
                     showDialogConfir("Productos","Carga de datos Exitosa");

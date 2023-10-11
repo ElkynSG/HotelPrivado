@@ -47,12 +47,12 @@ import java.util.List;
  */
 public class ItemsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
+
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     public static final String ARG_TIPO = "tipo";
     public static final String ARG_IDIOMA = "idioma";
 
-    // TODO: Rename and change types of parameters
+
     private int mTipo;
     private int mIdioma;
     private List<DataProduct> listItem;

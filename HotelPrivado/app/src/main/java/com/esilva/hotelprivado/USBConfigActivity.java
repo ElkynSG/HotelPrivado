@@ -4,6 +4,7 @@ package com.esilva.hotelprivado;
 import static com.esilva.hotelprivado.Util.Constantes.INTENT_ACTION_GRANT_USB;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.content.AsyncTaskLoader;
 
 import android.app.PendingIntent;
 import android.content.Context;
@@ -11,8 +12,11 @@ import android.content.Intent;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,7 +36,9 @@ import com.hoho.android.usbserial.util.SerialInputOutputManager;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class USBConfigActivity extends AppCompatActivity implements  View.OnClickListener, SerialInputOutputManager.Listener {
+import kotlinx.coroutines.GlobalScope;
+
+public class USBConfigActivity extends AppCompatActivity implements View.OnClickListener, SerialInputOutputManager.Listener {
 
 
     static class ListItemUSB {
@@ -65,20 +71,21 @@ public class USBConfigActivity extends AppCompatActivity implements  View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usbconfig);
         findViewByIdes();
+
     }
 
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.bt_configBt:
                 refresh();
                 break;
             default:
                 break;
         }
-    }
 
+    }
 
     private void refresh() {
         UsbManager usbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
@@ -86,22 +93,22 @@ public class USBConfigActivity extends AppCompatActivity implements  View.OnClic
         UsbSerialProber usbCustomProber = CustomProber.getCustomProber();
         listItems.clear();
         Collection<UsbDevice> values = usbManager.getDeviceList().values();
-        for(UsbDevice device : values) {
+        for (UsbDevice device : values) {
             UsbSerialDriver driver = usbDefaultProber.probeDevice(device);
-            if(driver == null) {
+            if (driver == null) {
                 driver = usbCustomProber.probeDevice(device);
 
             }
-            if(driver != null) {
-                for(int port = 0; port < driver.getPorts().size(); port++)
+            if (driver != null) {
+                for (int port = 0; port < driver.getPorts().size(); port++)
                     listItems.add(new ListItemUSB(device, port, driver));
             } else {
                 listItems.add(new ListItemUSB(device, 0, null));
             }
             ArrayList<String> data = new ArrayList<>();
 
-            for (ListItemUSB list: listItems){
-                data.add(list.device.getManufacturerName()+"  "+list.device.getProductName()+" Port "+list.port);
+            for (ListItemUSB list : listItems) {
+                data.add(list.device.getManufacturerName() + "  " + list.device.getProductName() + " Port " + list.port);
             }
             arrayAdapter = new ArrayAdapter<String>(this, R.layout.simple_list_private, data);
             li_listView.setAdapter(arrayAdapter);
@@ -116,36 +123,36 @@ public class USBConfigActivity extends AppCompatActivity implements  View.OnClic
             public void run() {
                 UsbDevice device = null;
                 UsbManager usbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
-                for(UsbDevice v : usbManager.getDeviceList().values())
-                    if(v.getDeviceId() == USB_deviceID)
+                for (UsbDevice v : usbManager.getDeviceList().values())
+                    if (v.getDeviceId() == USB_deviceID)
                         device = v;
-                if(device == null) {
-                    Log.v("USB","connection failed: device not found");
+                if (device == null) {
+                    Log.v("USB", "connection failed: device not found");
                     return;
                 }
                 UsbSerialDriver driver = UsbSerialProber.getDefaultProber().probeDevice(device);
-                if(driver == null) {
+                if (driver == null) {
                     driver = CustomProber.getCustomProber().probeDevice(device);
                 }
-                if(driver == null) {
-                    Log.v("USB","connection failed: no driver for device");
+                if (driver == null) {
+                    Log.v("USB", "connection failed: no driver for device");
                     return;
                 }
-                if(driver.getPorts().size() < USB_port) {
-                    Log.v("USB","connection failed: not enough ports at device");
+                if (driver.getPorts().size() < USB_port) {
+                    Log.v("USB", "connection failed: not enough ports at device");
                     return;
                 }
                 usbSerialPort = driver.getPorts().get(USB_port);
                 UsbDeviceConnection usbConnection = usbManager.openDevice(driver.getDevice());
-                if(usbConnection == null && usbPermission == USB_Permission.Unknown && !usbManager.hasPermission(driver.getDevice())) {
+                if (usbConnection == null && usbPermission == USB_Permission.Unknown && !usbManager.hasPermission(driver.getDevice())) {
                     usbPermission = USB_Permission.Requested;
                     int flags = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_MUTABLE : 0;
                     PendingIntent usbPermissionIntent = PendingIntent.getBroadcast(USBConfigActivity.this, 0, new Intent(INTENT_ACTION_GRANT_USB), flags);
                     usbManager.requestPermission(driver.getDevice(), usbPermissionIntent);
                     return;
                 }
-                String data  =  "USB Configurado";
-                if(usbConnection == null) {
+                String data = "USB Configurado";
+                if (usbConnection == null) {
                     if (!usbManager.hasPermission(driver.getDevice()))
                         data = "Sin permisos USB";
                 }
@@ -154,7 +161,7 @@ public class USBConfigActivity extends AppCompatActivity implements  View.OnClic
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(USBConfigActivity.this, finalData,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(USBConfigActivity.this, finalData, Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -186,7 +193,8 @@ public class USBConfigActivity extends AppCompatActivity implements  View.OnClic
 
     @Override
     public void onRunError(Exception e) {
-
+        // TODO esto probar
     }
+
 
 }

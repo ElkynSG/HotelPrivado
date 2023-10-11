@@ -94,7 +94,7 @@ public class privadoApplication extends Application {
         sdkNoti = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S?PendingIntent.FLAG_IMMUTABLE:0;
         sdkPermision = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S?0:1;
         preferences = getSharedPreferences(SHA_BASE,MODE_PRIVATE);
-        if(preferences.getBoolean(REP_AUTO,REPORT_AUTO_OFF)){
+        if(/*preferences.getBoolean(REP_AUTO,REPORT_AUTO_OFF)*/true){
             configService();
             createService();
         }

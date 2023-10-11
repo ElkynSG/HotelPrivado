@@ -34,6 +34,7 @@ public class Reporte {
     private int typeReporte;
     private String date_start,date_end,hour_start,hour_end;
     private String fileDataOut;
+    private Boolean isMessage;
 
     public Reporte(Activity activity, Context context,
                    Boolean conAlcohol,Boolean sinAlcohol,Boolean snacks,Boolean souvenir) {
@@ -45,6 +46,7 @@ public class Reporte {
         this.isSouvenir = souvenir;
 
         fileDataOut = "";
+        isMessage = true;
     }
 
     public void setNameFile(String nameFile) {
@@ -125,9 +127,12 @@ public class Reporte {
         return armaDataString(dataVentas);
     }
 
+    public void setIsShowMessage(Boolean isSMS){
+        isMessage = isSMS;
+    }
     public Boolean armaDataString(List<DataVentas> dataVentas) {
         if(dataVentas==null || dataVentas.size()<1) {
-            if(mActivity!= null)
+            if(mActivity!= null && isMessage)
                 util.showToast(R.drawable.fail,"Sin DATOS", mActivity);
             return false;
         }
