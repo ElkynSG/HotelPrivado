@@ -17,6 +17,7 @@ public class Constantes {
     public static final int REPORT_FIN = 2;
     public static final int REPORT_INI = 3;
     public static final int REPORT_PARTIAL = 4;
+    public static final int REPORT_TOTAL = 5;
 
     public static final String REP_AUTO = "AutoRepHab";
         public static final Boolean REPORT_AUTO_OFF = false;
@@ -33,9 +34,13 @@ public class Constantes {
     public static final int WRITE_WAIT_MILLIS = 2000;
 
     /////////////////////////////    HORA REPORTE     ///////////////////////////////////////////
-    public static final int re_hora =   23;
-    public static final int re_minu =   0;
+    public static final int re_hora =   00;
+    public static final int re_minu =   30;
     public static final int re_seg =    0;
+
+    public static final int re_hora2 =   5;
+    public static final int re_minu2 =   0;
+    public static final int re_seg2 =    0;
 
     /////////////////////////////    COMANDOS     ///////////////////////////////////////////
     public static final String CM_SALE =        "CM_SAL";

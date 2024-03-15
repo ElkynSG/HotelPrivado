@@ -1,12 +1,7 @@
 package com.esilva.hotelprivado.db;
 
 
-import static com.esilva.hotelprivado.db.db_hotel.BASE_CONTRASENA;
-import static com.esilva.hotelprivado.db.db_hotel.REP_FECHA_TAB;
-import static com.esilva.hotelprivado.db.db_hotel.REP_NUM_APROB;
-import static com.esilva.hotelprivado.db.db_hotel.base_id;
-import static com.esilva.hotelprivado.db.db_hotel.base_num_arti_vendidos;
-import static com.esilva.hotelprivado.db.db_hotel.base_num_articulos;
+import static com.esilva.hotelprivado.db.db_hotel.*;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -30,7 +25,7 @@ public class AdminBaseDatos {
         BaseDeDatos = admin.getWritableDatabase();
     }
 
-    //  Tabla productos
+    ///////////////////////////    TABLA PRODUCTOS    ////////////////////////////////////////////////////////
     public long insert(String id,String nameIma, String nombre_espanol, String nombre_ingles, String precio, String descri_espanol, String descri_ingles, String typeProduct, String num_items ){
         try {
             ContentValues registro = new ContentValues();
@@ -51,9 +46,11 @@ public class AdminBaseDatos {
             return 0;
         }
     }
+
     public int deleteTableProd(){
         return  BaseDeDatos.delete(db_hotel.name_table, null, null);
     }
+
     public List<DataProduct> getAllRows(){
         List<DataProduct> productos = new ArrayList<DataProduct>();
 
@@ -88,6 +85,7 @@ public class AdminBaseDatos {
 
         return productos;
     }
+
     public List<DataProduct> getProductoTipo(int type){
         List<DataProduct> productos = new ArrayList<DataProduct>();
 
@@ -256,33 +254,34 @@ public class AdminBaseDatos {
 
     }
 
-    //////////////////////////////    VENTAS    ///////////////////////////////////////
+    //////////////////////////////    INVENTARIO    ///////////////////////////////////////
 
-    public void deleteVentas(){
-        BaseDeDatos.delete(db_hotel.REP_NAME_TABLE,null,null);
+    public void deleteInventario(){
+        BaseDeDatos.delete(db_hotel.INV_NAME_TABLE,null,null);
     }
-    public long insertVenta(String numAproba,String fecha,String codProdu,String nombreProd,String precio,String cantidad,String fechaTab,String horaTab,String typeProdu,String recibo){
+
+    public long insertInventario(String numAproba,String fecha,String codProdu,String nombreProd,String precio,String cantidad,String fechaTab,String horaTab,String typeProdu,String recibo){
         int totalObj = Integer.valueOf(cantidad) * Integer.valueOf(precio.replace("$","").replace(".",""));
         ContentValues registro = new ContentValues();
-        registro.put(db_hotel.REP_NUM_APROB, numAproba);
-        registro.put(db_hotel.REP_FECHA, fecha);
-        registro.put(db_hotel.REP_COD_PROD, codProdu);
-        registro.put(db_hotel.REP_NOM_PROD, nombreProd);
-        registro.put(db_hotel.REP_PRECIO, precio);
-        registro.put(db_hotel.REP_CANTIDAD, cantidad);
-        registro.put(db_hotel.REP_FECHA_TAB, fechaTab);
-        registro.put(db_hotel.REP_HORA_TAB, horaTab);
-        registro.put(db_hotel.REP_TOTAL, String.valueOf(totalObj));
-        registro.put(db_hotel.REP_TYPE, typeProdu);
-        registro.put(db_hotel.REP_RECIBO, recibo);
-        return BaseDeDatos.insert(db_hotel.REP_NAME_TABLE,null,registro);
+        registro.put(db_hotel.INV_NUM_APROB, numAproba);
+        registro.put(db_hotel.INV_FECHA, fecha);
+        registro.put(db_hotel.INV_COD_PROD, codProdu);
+        registro.put(db_hotel.INV_NOM_PROD, nombreProd);
+        registro.put(db_hotel.INV_PRECIO, precio);
+        registro.put(db_hotel.INV_CANTIDAD, cantidad);
+        registro.put(db_hotel.INV_FECHA_TAB, fechaTab);
+        registro.put(db_hotel.INV_HORA_TAB, horaTab);
+        registro.put(db_hotel.INV_TOTAL, String.valueOf(totalObj));
+        registro.put(db_hotel.INV_TYPE, typeProdu);
+        registro.put(db_hotel.INV_RECIBO, recibo);
+        return BaseDeDatos.insert(db_hotel.INV_NAME_TABLE,null,registro);
     }
 
-    public List<DataVentas> getAllVentas(boolean conAlcohol,boolean sinAlcohol,boolean snacks,boolean souvenirs){
+    public List<DataVentas> getAllInventario(boolean conAlcohol,boolean sinAlcohol,boolean snacks,boolean souvenirs){
         List<DataVentas> ventas = new ArrayList<DataVentas>();
 
         try {
-            String sentence = "SELECT * FROM "+ db_hotel.REP_NAME_TABLE;
+            String sentence = "SELECT * FROM "+ db_hotel.INV_NAME_TABLE;
             Log.v("sentence",sentence);
             Cursor fila = BaseDeDatos.rawQuery(sentence,null);
 
@@ -341,11 +340,12 @@ public class AdminBaseDatos {
         }
         return ventas;
     }
-    public List<DataVentas> getAllVentasnumAproba(String numAprobacion){
+
+    public List<DataVentas> getAllInventarioNumAproba(String numAprobacion){
         List<DataVentas> ventas = new ArrayList<DataVentas>();
 
         try {
-            String sentence = "SELECT * FROM "+ db_hotel.REP_NAME_TABLE+" WHERE "+REP_NUM_APROB+"="+numAprobacion;
+            String sentence = "SELECT * FROM "+ db_hotel.INV_NAME_TABLE+" WHERE "+INV_NUM_APROB+"="+numAprobacion;
             Log.v("sentence",sentence);
             Cursor fila = BaseDeDatos.rawQuery(sentence,null);
 
@@ -379,7 +379,7 @@ public class AdminBaseDatos {
         return ventas;
     }
 
-    public List<DataVentas> getfechaIniVentas(String fechaIni, String horaIni,boolean conAlcohol,boolean sinAlcohol,boolean snacks,boolean souvenirs){
+    public List<DataVentas> getfechaIniInventario(String fechaIni, String horaIni,boolean conAlcohol,boolean sinAlcohol,boolean snacks,boolean souvenirs){
         List<DataVentas> ventas = new ArrayList<DataVentas>();
         String[] hoMin = horaIni.split(":");
         int intHora = Integer.valueOf(hoMin[0]);
@@ -387,7 +387,7 @@ public class AdminBaseDatos {
         Boolean isSave;
 
         try {
-            String sentence = "SELECT * FROM "+ db_hotel.REP_NAME_TABLE+" WHERE "+REP_FECHA_TAB+">='"+fechaIni+"'";
+            String sentence = "SELECT * FROM "+ db_hotel.INV_NAME_TABLE+" WHERE "+INV_FECHA_TAB+">='"+fechaIni+"'";
             Log.v("sentence",sentence);
             Cursor fila = BaseDeDatos.rawQuery(sentence,null);
 
@@ -466,7 +466,7 @@ public class AdminBaseDatos {
         return ventas;
     }
 
-    public List<DataVentas> getfechaFinVentas(String fechaFin, String horaFin,boolean conAlcohol,boolean sinAlcohol,boolean snacks,boolean souvenirs){
+    public List<DataVentas> getfechaFiniInventario(String fechaFin, String horaFin,boolean conAlcohol,boolean sinAlcohol,boolean snacks,boolean souvenirs){
         List<DataVentas> ventas = new ArrayList<DataVentas>();
         String[] hoMin = horaFin.split(":");
         int intHora = Integer.valueOf(hoMin[0]);
@@ -474,7 +474,7 @@ public class AdminBaseDatos {
         Boolean isSave;
 
         try {
-            String sentence = "SELECT * FROM "+ db_hotel.REP_NAME_TABLE+" WHERE "+REP_FECHA_TAB+"<='"+fechaFin+"'";
+            String sentence = "SELECT * FROM "+ db_hotel.INV_NAME_TABLE+" WHERE "+INV_FECHA_TAB+"<='"+fechaFin+"'";
             Log.v("sentence",sentence);
             Cursor fila = BaseDeDatos.rawQuery(sentence,null);
 
@@ -553,7 +553,7 @@ public class AdminBaseDatos {
         return ventas;
     }
 
-    public List<DataVentas> getfechaPartialentas(String fechaIni, String horaIni,String fechaFin, String horaFin,
+    public List<DataVentas> getfechaPartialInventa(String fechaIni, String horaIni,String fechaFin, String horaFin,
                                                  boolean conAlcohol,boolean sinAlcohol,boolean snacks,boolean souvenirs){
         Boolean isIni,isFin;
         List<DataVentas> ventas = new ArrayList<DataVentas>();
@@ -565,7 +565,7 @@ public class AdminBaseDatos {
         int intMinFin = Integer.valueOf(hoMinFin[1]);
 
         try {
-            String sentence = "SELECT * FROM "+ db_hotel.REP_NAME_TABLE+" WHERE "+REP_FECHA_TAB+">='"+fechaIni +"' and "+REP_FECHA_TAB+"<='"+fechaFin+"'";
+            String sentence = "SELECT * FROM "+ db_hotel.INV_NAME_TABLE+" WHERE "+INV_FECHA_TAB+">='"+fechaIni +"' and "+INV_FECHA_TAB+"<='"+fechaFin+"'";
             Log.v("sentence",sentence);
             Cursor fila = BaseDeDatos.rawQuery(sentence,null);
 
@@ -665,6 +665,456 @@ public class AdminBaseDatos {
         }
         return ventas;
     }
+
+    //////////////////////////////    HISTORICO DE VENTAS    ///////////////////////////////////////
+
+    public void deleteVentas(){
+        BaseDeDatos.delete(VEN_NAME_TABLE,null,null);
+    }
+
+    public long insertVentas(String numAproba,String fecha,String codProdu,String nombreProd,String precio,String cantidad,String fechaTab,String horaTab,String typeProdu,String recibo){
+        int totalObj = Integer.valueOf(cantidad) * Integer.valueOf(precio.replace("$","").replace(".",""));
+        ContentValues registro = new ContentValues();
+        registro.put(db_hotel.VEN_NUM_APROB, numAproba);
+        registro.put(db_hotel.VEN_FECHA, fecha);
+        registro.put(db_hotel.VEN_COD_PROD, codProdu);
+        registro.put(db_hotel.VEN_NOM_PROD, nombreProd);
+        registro.put(db_hotel.VEN_PRECIO, precio);
+        registro.put(db_hotel.VEN_CANTIDAD, cantidad);
+        registro.put(db_hotel.VEN_FECHA_TAB, fechaTab);
+        registro.put(db_hotel.VEN_HORA_TAB, horaTab);
+        registro.put(db_hotel.VEN_TOTAL, String.valueOf(totalObj));
+        registro.put(db_hotel.VEN_TYPE, typeProdu);
+        registro.put(db_hotel.VEN_RECIBO, recibo);
+        return BaseDeDatos.insert(db_hotel.VEN_NAME_TABLE,null,registro);
+    }
+
+    public List<DataVentas> getAllVentas(boolean conAlcohol,boolean sinAlcohol,boolean snacks,boolean souvenirs){
+        List<DataVentas> ventas = new ArrayList<DataVentas>();
+
+        try {
+            String sentence = "SELECT * FROM "+ db_hotel.VEN_NAME_TABLE;
+            Log.v("sentence",sentence);
+            Cursor fila = BaseDeDatos.rawQuery(sentence,null);
+
+            if(fila == null )
+                return null;
+
+            if(!fila.moveToFirst())
+                return null;
+
+            for(fila.moveToFirst(); !fila.isAfterLast(); fila.moveToNext()){
+                DataVentas numItem = new DataVentas();
+
+                numItem.setId(fila.getString(0));
+                numItem.setRepAproba(fila.getString(1));
+                numItem.setRepFecha(fila.getString(2));
+                numItem.setRepCodProd(fila.getString(3));
+                numItem.setRepNomProd(fila.getString(4));
+                numItem.setRepPrecio(fila.getString(5));
+                numItem.setRepCantidad(fila.getString(6));
+                numItem.setRepFechaTab(fila.getString(7));
+                numItem.setRepHoraTab(fila.getString(8));
+                numItem.setRepTotal(fila.getString(9));
+                numItem.setTypeProducto(fila.getString(10));
+                numItem.setRecibo(fila.getString(11));
+
+                if(conAlcohol){
+                    if(numItem.getTypeProducto().equals("1")){
+                        ventas.add(numItem);
+                        continue;
+                    }
+                }
+
+                if(sinAlcohol){
+                    if(numItem.getTypeProducto().equals("2")){
+                        ventas.add(numItem);
+                        continue;
+                    }
+                }
+
+                if(snacks){
+                    if(numItem.getTypeProducto().equals("3")){
+                        ventas.add(numItem);
+                        continue;
+                    }
+                }
+
+                if(souvenirs){
+                    if(numItem.getTypeProducto().equals("4")){
+                        ventas.add(numItem);
+                        continue;
+                    }
+                }
+            }
+        }catch (Exception e){
+            return null;
+        }
+        return ventas;
+    }
+
+    public List<DataVentas> getAllVentasNumAproba(String numAprobacion){
+        List<DataVentas> ventas = new ArrayList<DataVentas>();
+
+        try {
+            String sentence = "SELECT * FROM "+ VEN_NAME_TABLE+" WHERE "+VEN_NUM_APROB+"="+numAprobacion;
+            Log.v("sentence",sentence);
+            Cursor fila = BaseDeDatos.rawQuery(sentence,null);
+
+            if(fila == null )
+                return null;
+
+            if(!fila.moveToFirst())
+                return null;
+
+            for(fila.moveToFirst(); !fila.isAfterLast(); fila.moveToNext()){
+                DataVentas numItem = new DataVentas();
+
+                numItem.setId(fila.getString(0));
+                numItem.setRepAproba(fila.getString(1));
+                numItem.setRepFecha(fila.getString(2));
+                numItem.setRepCodProd(fila.getString(3));
+                numItem.setRepNomProd(fila.getString(4));
+                numItem.setRepPrecio(fila.getString(5));
+                numItem.setRepCantidad(fila.getString(6));
+                numItem.setRepFechaTab(fila.getString(7));
+                numItem.setRepHoraTab(fila.getString(8));
+                numItem.setRepTotal(fila.getString(9));
+                numItem.setTypeProducto(fila.getString(10));
+                numItem.setRecibo(fila.getString(11));
+
+                ventas.add(numItem);
+            }
+        }catch (Exception e){
+            return null;
+        }
+        return ventas;
+    }
+
+    public List<DataVentas> getAllfechaVentas(String fecha){
+        List<DataVentas> ventas = new ArrayList<DataVentas>();
+
+        try {
+            String sentence = "SELECT * FROM "+ VEN_NAME_TABLE+" WHERE "+VEN_FECHA_TAB+"='"+fecha+"'";
+            Log.v("sentence",sentence);
+            Cursor fila = BaseDeDatos.rawQuery(sentence,null);
+
+            if(fila == null )
+                return null;
+
+            if(!fila.moveToFirst())
+                return null;
+
+            for(fila.moveToFirst(); !fila.isAfterLast(); fila.moveToNext()){
+                DataVentas numItem = new DataVentas();
+
+                numItem.setId(fila.getString(0));
+                numItem.setRepAproba(fila.getString(1));
+                numItem.setRepFecha(fila.getString(2));
+                numItem.setRepCodProd(fila.getString(3));
+                numItem.setRepNomProd(fila.getString(4));
+                numItem.setRepPrecio(fila.getString(5));
+                numItem.setRepCantidad(fila.getString(6));
+                numItem.setRepFechaTab(fila.getString(7));
+                numItem.setRepHoraTab(fila.getString(8));
+                numItem.setRepTotal(fila.getString(9));
+                numItem.setTypeProducto(fila.getString(10));
+                numItem.setRecibo(fila.getString(11));
+                ventas.add(numItem);
+            }
+        }catch (Exception e){
+            return null;
+        }
+        return ventas;
+    }
+
+    public List<DataVentas> getfechaIniVentas(String fechaIni, String horaIni,boolean conAlcohol,boolean sinAlcohol,boolean snacks,boolean souvenirs){
+        List<DataVentas> ventas = new ArrayList<DataVentas>();
+        String[] hoMin = horaIni.split(":");
+        int intHora = Integer.valueOf(hoMin[0]);
+        int intMin = Integer.valueOf(hoMin[1]);
+        Boolean isSave;
+
+        try {
+            String sentence = "SELECT * FROM "+ VEN_NAME_TABLE+" WHERE "+VEN_FECHA_TAB+">='"+fechaIni+"'";
+            Log.v("sentence",sentence);
+            Cursor fila = BaseDeDatos.rawQuery(sentence,null);
+
+            if(fila == null )
+                return null;
+
+            if(!fila.moveToFirst())
+                return null;
+
+            for(fila.moveToFirst(); !fila.isAfterLast(); fila.moveToNext()){
+                isSave = false;
+                DataVentas numItem = new DataVentas();
+
+                numItem.setId(fila.getString(0));
+                numItem.setRepAproba(fila.getString(1));
+                numItem.setRepFecha(fila.getString(2));
+                numItem.setRepCodProd(fila.getString(3));
+                numItem.setRepNomProd(fila.getString(4));
+                numItem.setRepPrecio(fila.getString(5));
+                numItem.setRepCantidad(fila.getString(6));
+                numItem.setRepFechaTab(fila.getString(7));
+                numItem.setRepHoraTab(fila.getString(8));
+                numItem.setRepTotal(fila.getString(9));
+                numItem.setTypeProducto(fila.getString(10));
+                numItem.setRecibo(fila.getString(11));
+
+                if(fechaIni.equals(numItem.getRepFechaTab())){
+                    String[] hoMinBase = numItem.getRepHoraTab().split(":");
+                    int intHoraBase = Integer.valueOf(hoMinBase[0]);
+                    int intMinBase = Integer.valueOf(hoMinBase[1]);
+                    if(intHora == intHoraBase && intMinBase >= intMin){
+                        isSave=true;
+                    }else if(intHoraBase > intHora){
+                        isSave=true;
+                    }else{
+                        Log.v("hotel","hora menor "+numItem.getRepHoraTab());
+                    }
+                }else{
+                    isSave=true;
+                }
+
+                if(isSave){
+                    if(conAlcohol){
+                        if(numItem.getTypeProducto().equals("1")){
+                            ventas.add(numItem);
+                            continue;
+                        }
+                    }
+
+                    if(sinAlcohol){
+                        if(numItem.getTypeProducto().equals("2")){
+                            ventas.add(numItem);
+                            continue;
+                        }
+                    }
+
+                    if(snacks){
+                        if(numItem.getTypeProducto().equals("3")){
+                            ventas.add(numItem);
+                            continue;
+                        }
+                    }
+
+                    if(souvenirs){
+                        if(numItem.getTypeProducto().equals("4")){
+                            ventas.add(numItem);
+                            continue;
+                        }
+                    }
+                }
+
+            }
+        }catch (Exception e){
+            return null;
+        }
+        return ventas;
+    }
+
+    public List<DataVentas> getfechaFiniVentas(String fechaFin, String horaFin,boolean conAlcohol,boolean sinAlcohol,boolean snacks,boolean souvenirs){
+        List<DataVentas> ventas = new ArrayList<DataVentas>();
+        String[] hoMin = horaFin.split(":");
+        int intHora = Integer.valueOf(hoMin[0]);
+        int intMin = Integer.valueOf(hoMin[1]);
+        Boolean isSave;
+
+        try {
+            String sentence = "SELECT * FROM "+ VEN_NAME_TABLE+" WHERE "+VEN_FECHA_TAB+"<='"+fechaFin+"'";
+            Log.v("sentence",sentence);
+            Cursor fila = BaseDeDatos.rawQuery(sentence,null);
+
+            if(fila == null )
+                return null;
+
+            if(!fila.moveToFirst())
+                return null;
+
+            for(fila.moveToFirst(); !fila.isAfterLast(); fila.moveToNext()){
+                isSave = false;
+                DataVentas numItem = new DataVentas();
+
+                numItem.setId(fila.getString(0));
+                numItem.setRepAproba(fila.getString(1));
+                numItem.setRepFecha(fila.getString(2));
+                numItem.setRepCodProd(fila.getString(3));
+                numItem.setRepNomProd(fila.getString(4));
+                numItem.setRepPrecio(fila.getString(5));
+                numItem.setRepCantidad(fila.getString(6));
+                numItem.setRepFechaTab(fila.getString(7));
+                numItem.setRepHoraTab(fila.getString(8));
+                numItem.setRepTotal(fila.getString(9));
+                numItem.setTypeProducto(fila.getString(10));
+                numItem.setRecibo(fila.getString(11));
+
+                if(fechaFin.equals(numItem.getRepFechaTab())){
+                    String[] hoMinBase = numItem.getRepHoraTab().split(":");
+                    int intHoraBase = Integer.valueOf(hoMinBase[0]);
+                    int intMinBase = Integer.valueOf(hoMinBase[1]);
+                    if(intHora == intHoraBase && intMinBase <= intMin){
+                        isSave = true;
+                    }else if(intHoraBase < intHora){
+                        isSave = true;
+                    }else{
+                        Log.v("hotel","hora mayor "+numItem.getRepHoraTab());
+                    }
+                }else{
+                    isSave = true;
+                }
+
+                if(isSave){
+                    if(conAlcohol){
+                        if(numItem.getTypeProducto().equals("1")){
+                            ventas.add(numItem);
+                            continue;
+                        }
+                    }
+
+                    if(sinAlcohol){
+                        if(numItem.getTypeProducto().equals("2")){
+                            ventas.add(numItem);
+                            continue;
+                        }
+                    }
+
+                    if(snacks){
+                        if(numItem.getTypeProducto().equals("3")){
+                            ventas.add(numItem);
+                            continue;
+                        }
+                    }
+
+                    if(souvenirs){
+                        if(numItem.getTypeProducto().equals("4")){
+                            ventas.add(numItem);
+                            continue;
+                        }
+                    }
+                }
+
+            }
+        }catch (Exception e){
+            return null;
+        }
+        return ventas;
+    }
+
+    public List<DataVentas> getfechaPartialVentas(String fechaIni, String horaIni,String fechaFin, String horaFin,
+                                                   boolean conAlcohol,boolean sinAlcohol,boolean snacks,boolean souvenirs){
+        Boolean isIni,isFin;
+        List<DataVentas> ventas = new ArrayList<DataVentas>();
+        String[] hoMinIni = horaIni.split(":");
+        int intHoraIni = Integer.valueOf(hoMinIni[0]);
+        int intMinIni = Integer.valueOf(hoMinIni[1]);
+        String[] hoMinFin = horaFin.split(":");
+        int intHoraFin = Integer.valueOf(hoMinFin[0]);
+        int intMinFin = Integer.valueOf(hoMinFin[1]);
+
+        try {
+            String sentence = "SELECT * FROM "+ VEN_NAME_TABLE+" WHERE "+VEN_FECHA_TAB+">='"+fechaIni +"' and "+VEN_FECHA_TAB+"<='"+fechaFin+"'";
+            Log.v("sentence",sentence);
+            Cursor fila = BaseDeDatos.rawQuery(sentence,null);
+
+            if(fila == null )
+                return null;
+
+            if(!fila.moveToFirst())
+                return null;
+
+            for(fila.moveToFirst(); !fila.isAfterLast(); fila.moveToNext()){
+                isFin =false;
+                isIni =false;
+
+                DataVentas numItem = new DataVentas();
+
+                numItem.setId(fila.getString(0));
+                numItem.setRepAproba(fila.getString(1));
+                numItem.setRepFecha(fila.getString(2));
+                numItem.setRepCodProd(fila.getString(3));
+                numItem.setRepNomProd(fila.getString(4));
+                numItem.setRepPrecio(fila.getString(5));
+                numItem.setRepCantidad(fila.getString(6));
+                numItem.setRepFechaTab(fila.getString(7));
+                numItem.setRepHoraTab(fila.getString(8));
+                numItem.setRepTotal(fila.getString(9));
+                numItem.setTypeProducto(fila.getString(10));
+                numItem.setRecibo(fila.getString(11));
+
+                if(fechaIni.equals(numItem.getRepFechaTab())){
+                    String[] hoMinBase = numItem.getRepHoraTab().split(":");
+                    int intHoraBase = Integer.valueOf(hoMinBase[0]);
+                    int intMinBase = Integer.valueOf(hoMinBase[1]);
+                    if(intHoraIni == intHoraBase && intMinBase >= intMinIni){
+                        isIni=true;
+                    }else if(intHoraBase > intHoraIni){
+                        isIni=true;
+                    }else{
+                        Log.v("hotel","hora menor "+numItem.getRepHoraTab());
+                    }
+                }else{
+                    isIni=true;
+                }
+
+
+                if(fechaFin.equals(numItem.getRepFechaTab())){
+                    String[] hoMinBase = numItem.getRepHoraTab().split(":");
+                    int intHoraBase = Integer.valueOf(hoMinBase[0]);
+                    int intMinBase = Integer.valueOf(hoMinBase[1]);
+                    if(intHoraFin == intHoraBase && intMinBase <= intMinFin){
+                        isFin = true;
+                    }else if(intHoraBase < intHoraFin){
+                        isFin = true;
+                    }else{
+                        Log.v("hotel","hora mayor "+numItem.getRepHoraTab());
+                    }
+                }else{
+                    isFin = true;
+                }
+
+
+
+                if((isFin && isIni) ){
+
+                    if(conAlcohol){
+                        if(numItem.getTypeProducto().equals("1")){
+                            ventas.add(numItem);
+                            continue;
+                        }
+                    }
+
+                    if(sinAlcohol){
+                        if(numItem.getTypeProducto().equals("2")){
+                            ventas.add(numItem);
+                            continue;
+                        }
+                    }
+
+                    if(snacks){
+                        if(numItem.getTypeProducto().equals("3")){
+                            ventas.add(numItem);
+                            continue;
+                        }
+                    }
+
+                    if(souvenirs){
+                        if(numItem.getTypeProducto().equals("4")){
+                            ventas.add(numItem);
+                            continue;
+                        }
+                    }
+
+                }
+
+            }
+        }catch (Exception e){
+            return null;
+        }
+        return ventas;
+    }
+
 
     public void closeBaseDtos(){
         BaseDeDatos.close();

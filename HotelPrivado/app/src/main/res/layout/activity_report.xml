@@ -332,4 +332,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Button
+        android:id="@+id/bt_generar_br"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:background="#BC0E01"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="Borrar datos"
+        android:textColor="@color/white"
+        android:textSize="22dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.943"
+        app:layout_constraintStart_toEndOf="@id/bt_generar_rp"
+        app:layout_constraintTop_toBottomOf="@id/label3" />
 </androidx.constraintlayout.widget.ConstraintLayout>

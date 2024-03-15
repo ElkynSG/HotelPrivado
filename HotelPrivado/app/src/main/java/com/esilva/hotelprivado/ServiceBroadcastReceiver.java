@@ -4,6 +4,7 @@ package com.esilva.hotelprivado;
 import static com.esilva.hotelprivado.Util.Constantes.CHANNEL_NOTIFICATION;
 import static com.esilva.hotelprivado.Util.Constantes.REPORT_ALL;
 import static com.esilva.hotelprivado.Util.Constantes.REPORT_INI;
+import static com.esilva.hotelprivado.Util.Constantes.REPORT_TOTAL;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -60,10 +61,11 @@ public class ServiceBroadcastReceiver extends BroadcastReceiver {
 
     private Boolean saveReport(Context context){
         Boolean ret = false;
+        nameFile = "Reporte "+getFechaOld()+".txt";
         Reporte reporte = new Reporte(null,context,true,true,true,true);
-        reporte.setDateTime(getFechaOld(),null,"23:00",null);
-        if(reporte.generarReporte(REPORT_INI)){
-            reporte.setNameFile(getNameFile());
+        reporte.setDateTime(getFechaOld(),null,"00:30",null);
+        if(reporte.generarReporte(REPORT_TOTAL)){
+            reporte.setNameFile(nameFile);
             return reporte.grabaReporte();
         }
         Log.v("ServiceBroadcastReceiver", "inicia el servicio SIN datos");

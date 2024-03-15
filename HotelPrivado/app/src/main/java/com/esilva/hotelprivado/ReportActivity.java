@@ -20,6 +20,7 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,7 +41,7 @@ public class ReportActivity extends AppCompatActivity implements View.OnClickLis
     private EditText edHoraInicial;
     private EditText edHoraFinal;
 
-    private Button btGenerar;
+    private Button btGenerar,btBorrarDt;
 
     private ImageView backReporte;
     private CheckBox checkSnacks;
@@ -64,6 +65,8 @@ public class ReportActivity extends AppCompatActivity implements View.OnClickLis
 
     private String StrReporte;
     private String StrNameReport;
+
+    private static Dialog customDialog;
 
     private Reporte reporte;
     @Override
@@ -91,6 +94,9 @@ public class ReportActivity extends AppCompatActivity implements View.OnClickLis
 
         btGenerar = findViewById(R.id.bt_generar_rp);
         btGenerar.setOnClickListener(this);
+
+        btBorrarDt = findViewById(R.id.bt_generar_br);
+        btBorrarDt.setOnClickListener(this);
 
         checkSnacks = findViewById(R.id.cheSnack);
         checkConAlco = findViewById(R.id.cheCon);
@@ -129,6 +135,9 @@ public class ReportActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.bt_generar_rp:
                 generaReporte();
+                break;
+            case R.id.bt_generar_br:
+                showDialog("Ventas","Borrar historico de ventas?");
                 break;
             default:
                 break;
@@ -379,4 +388,56 @@ public class ReportActivity extends AppCompatActivity implements View.OnClickLis
         imm.showSoftInput(name, InputMethodManager.SHOW_IMPLICIT);
     }
 
+    private void showDialog(String title,String message){
+        customDialog = new Dialog(ReportActivity.this);
+        customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        customDialog.setCancelable(false);
+        customDialog.setContentView(R.layout.login_dialog_setti);
+
+        TextView tv_titulo = customDialog.findViewById(R.id.diTitleialog);
+        TextView tv_message = customDialog.findViewById(R.id.txt_dialog);
+        tv_titulo.setText(title);
+        tv_message.setText(message);
+        customDialog.findViewById(R.id.btn_dialog_no).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                customDialog.dismiss();
+            }
+        });
+        customDialog.findViewById(R.id.btn_dialog_si).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                customDialog.dismiss();
+                AdminBaseDatos adminBaseDatos = new AdminBaseDatos(ReportActivity.this);
+                adminBaseDatos.deleteVentas();
+
+                showDialogConfir("Ventas","Historico de ventas Borrado");
+                adminBaseDatos.closeBaseDtos();
+            }
+        });
+
+        customDialog.show();
+
+    }
+
+    private void showDialogConfir(String title,String message){
+        customDialog = new Dialog(ReportActivity.this);
+        customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        customDialog.setCancelable(false);
+        customDialog.setContentView(R.layout.login_dialog);
+
+        TextView tv_titulo = customDialog.findViewById(R.id.diTitleialog);
+        TextView tv_message = customDialog.findViewById(R.id.txt_dialog);
+        tv_titulo.setText(title);
+        tv_message.setText(message);
+        customDialog.findViewById(R.id.btn_dialog_bt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                customDialog.dismiss();
+            }
+        });
+
+        customDialog.show();
+
+    }
 }

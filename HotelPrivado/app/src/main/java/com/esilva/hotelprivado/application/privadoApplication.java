@@ -12,6 +12,9 @@ import static com.esilva.hotelprivado.Util.Constantes.USB_PORT;
 import static com.esilva.hotelprivado.Util.Constantes.re_hora;
 import static com.esilva.hotelprivado.Util.Constantes.re_minu;
 import static com.esilva.hotelprivado.Util.Constantes.re_seg;
+import static com.esilva.hotelprivado.Util.Constantes.re_hora2;
+import static com.esilva.hotelprivado.Util.Constantes.re_minu2;
+import static com.esilva.hotelprivado.Util.Constantes.re_seg2;
 
 import android.app.AlarmManager;
 import android.app.Application;
@@ -97,6 +100,7 @@ public class privadoApplication extends Application {
         if(/*preferences.getBoolean(REP_AUTO,REPORT_AUTO_OFF)*/true){
             configService();
             createService();
+            createService2();
         }
 
         USB_deviceID = preferences.getInt(USB_ID,0);
@@ -134,7 +138,25 @@ public class privadoApplication extends Application {
         calendar.set(Calendar.MINUTE, re_minu);
         calendar.set(Calendar.SECOND, re_seg);
 
-        Log.v("time","hora reporte"+String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)));
+        Log.v("time","hora reporte "+String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)));
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY
+                , pendingIntent);
+    }
+
+    private void createService2(){
+        AlarmManager alarmManager = (AlarmManager) appContext.getSystemService(ALARM_SERVICE);
+
+        Intent intentToRepeat = new Intent(appContext, ServiceBroadcastReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(appContext, 0, intentToRepeat, sdkNoti);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, re_hora2);
+        calendar.set(Calendar.MINUTE, re_minu2);
+        calendar.set(Calendar.SECOND, re_seg2);
+
+        Log.v("time","hora reporte "+String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)));
 
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY
                 , pendingIntent);

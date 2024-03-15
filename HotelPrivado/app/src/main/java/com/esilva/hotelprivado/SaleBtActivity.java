@@ -81,6 +81,7 @@ public class SaleBtActivity extends AppCompatActivity {
     static final int STATE_CONNECTED = 3;
     static final int STATE_CONNECTION_FAILED = 4;
     static final int STATE_MESSAGE_RECEIVED = 5;
+    static final int STATE_MESSAGE_RECV = 6;
     private int stateConectionBt;
 
     SendReceive sendReceive;
@@ -124,7 +125,8 @@ public class SaleBtActivity extends AppCompatActivity {
         if (!bluetoothAdapter.isEnabled()) {
             Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             if ((ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) || privadoApplication.getSdkPermision()==0) {
-                startActivityForResult(enableIntent, REQUEST_ENABLE_BLUETOOTH);return;
+                startActivityForResult(enableIntent, REQUEST_ENABLE_BLUETOOTH);
+                return;
             }
         }
 
@@ -207,6 +209,13 @@ public class SaleBtActivity extends AppCompatActivity {
     }
 
     private void showDialog(){
+        Log.d("DP_DLOG","showDialog ");
+        if(customDialog != null) {
+            customDialog.dismiss();
+
+            customDialog = null;
+        }
+
         customDialog = new Dialog(SaleBtActivity.this,R.style.popup_dialog);
         customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         customDialog.setCancelable(false);
@@ -226,14 +235,22 @@ public class SaleBtActivity extends AppCompatActivity {
         giDialogo = customDialog.findViewById(R.id.gifres);
 
         ima_check = customDialog.findViewById(R.id.im_estado);
-        customDialog.show();
-        customDialog.getWindow().setLayout(900, 720);
 
+        if(!isFinishing()) {
+                customDialog.show();
+                customDialog.getWindow().setLayout(900, 720);
+        }
         conectarBt();
 
     }
 
     private void showDialog2(int text){
+        Log.d("DP_DLOG","showDialog2 ");
+        if(customDialog != null) {
+            customDialog.dismiss();
+            customDialog = null;
+        }
+
         customDialog = new Dialog(SaleBtActivity.this,R.style.popup_dialog);
         customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         customDialog.setCancelable(false);
@@ -264,9 +281,11 @@ public class SaleBtActivity extends AppCompatActivity {
             ima_check.setVisibility(View.VISIBLE);
         }
 
-        customDialog.show();
-        customDialog.getWindow().setLayout(900, 720);
-        ima_check.startAnimation(animation);
+        if(!isFinishing()) {
+            customDialog.show();
+            customDialog.getWindow().setLayout(900, 720);
+            ima_check.startAnimation(animation);
+        }
         resetDisconnectTimer(3000);
     }
 
@@ -422,6 +441,9 @@ public class SaleBtActivity extends AppCompatActivity {
                     handler.obtainMessage(STATE_MESSAGE_RECEIVED,bytes,-1,buffer).sendToTarget();
                 } catch (IOException e) {
                     e.printStackTrace();
+                    Message message=Message.obtain();
+                    message.what=STATE_MESSAGE_RECV;
+                    handler.sendMessage(message);
                 }
             }
         }
@@ -585,14 +607,14 @@ public class SaleBtActivity extends AppCompatActivity {
                 if(privadoApplication.getPreferences().getInt(SHA_IDIOMA,SHA_IDIOMA_INGLES) == SHA_IDIOMA_INGLES)
                     speck.speak("Successful transaction. Please pick up your products",TextToSpeech.QUEUE_FLUSH,null,null);
                 else
-                    speck.speak("Transaccion exitosa. Por favor recoja sus productos",TextToSpeech.QUEUE_FLUSH,null,null);
+                    speck.speak("Transaccion Aprobada. Por favor recoja sus productos",TextToSpeech.QUEUE_FLUSH,null,null);
 
             }else {
                 showDialog2(R.string.dialog_sale_retira);
                 if(privadoApplication.getPreferences().getInt(SHA_IDIOMA,SHA_IDIOMA_INGLES) == SHA_IDIOMA_INGLES)
                     speck.speak("Successful transaction. Please pick up your products",TextToSpeech.QUEUE_FLUSH,null,null);
                 else
-                    speck.speak("Transaccion exitosa. Por favor recoja sus productos",TextToSpeech.QUEUE_FLUSH,null,null);
+                    speck.speak("Transaccion Aprobada. Por favor recoja sus productos",TextToSpeech.QUEUE_FLUSH,null,null);
             }
 
             actualizaTabla(miCArrito);
@@ -684,9 +706,9 @@ public class SaleBtActivity extends AppCompatActivity {
             product.setDt_num_articulos(String.valueOf(disponible));
             product.setDt_num_vendidos(String.valueOf(vendidos));
            if(adminBaseDatos.updateProducto(product)){
-                Log.v("actualizar","ok");
+               Log.d("DP_DLOG","actualizaTabla "+"OK");
             }else{
-                Log.v("actualizar","fail");
+               Log.d("DP_DLOG","actualizaTabla "+"FAIL");
             }
         }
         adminBaseDatos.closeBaseDtos();
@@ -702,7 +724,8 @@ public class SaleBtActivity extends AppCompatActivity {
             hora_tab = sdf2.format(resultdate);
 
             for (DataProduct product : miCArritoVentas) {
-                adminBaseDatos.insertVenta(numAprobacion, fecha, product.dt_id_producto, product.dt_nombre_es, product.dt_precio, product.dt_num_articulos, fecha_tab, hora_tab, product.dt_type_product, recibo);
+                long val = adminBaseDatos.insertVentas(numAprobacion, fecha, product.dt_id_producto, product.dt_nombre_es, product.dt_precio, product.dt_num_articulos, fecha_tab, hora_tab, product.dt_type_product, recibo);
+                Log.d("DP_DLOG","guardaCarrito "+val);
             }
             adminBaseDatos.closeBaseDtos();
             isGuardaCarrito = false;
@@ -803,6 +826,11 @@ public class SaleBtActivity extends AppCompatActivity {
                     String tempMsg = new String(readBuff, 0, msg.arg1);
                     procesaTrama(tempMsg);
                     break;
+                case STATE_MESSAGE_RECV:
+                    terminarBt();
+                    //Toast.makeText(SaleBtActivity.this,"Error en la conexion con el dispositivo",Toast.LENGTH_LONG).show();
+                    break;
+
             }
             return true;
         }
@@ -812,7 +840,10 @@ public class SaleBtActivity extends AppCompatActivity {
 
     private void finalizar(){
         terminarBt();
+        if(customDialog != null)
+            customDialog.dismiss();
         Intent main = new Intent(this,MainActivity.class);
+        main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(main);
         this.finish();
     }
@@ -848,6 +879,7 @@ public class SaleBtActivity extends AppCompatActivity {
     public void onUserInteraction(){
         if(tr) {
             Log.v("TIMEOUT", "YO");
+
             resetDisconnectTimer(DISCONNECT_TIMEOUT);
         }
     }

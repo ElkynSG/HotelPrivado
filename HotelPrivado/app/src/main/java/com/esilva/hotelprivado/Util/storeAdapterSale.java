@@ -31,7 +31,7 @@ import java.text.SimpleDateFormat;
 
 public class storeAdapterSale extends BaseAdapter {
     private Context mContext;
-    private List<DataProduct> mList = new ArrayList<DataProduct>();
+    private List<DataProduct> mList;
     private int selected = -1;
     private LayoutInflater mInflater;
     NumberFormat currencyFormatter;
@@ -39,21 +39,19 @@ public class storeAdapterSale extends BaseAdapter {
 
     InterfaceAdpterSale interfaceAdapter;
 
-    public storeAdapterSale(Context pContext, List<DataProduct> list,int idioma) {
-        this.mContext = pContext;
-        this.idioma =idioma;
+
+    public storeAdapterSale(Context context, List<DataProduct> list, int idioma) {
+        this.mContext = context;
+        this.mList = list;
+        this.idioma = idioma;
         mInflater = LayoutInflater.from(mContext);
 
-        DecimalFormatSymbols custom=new DecimalFormatSymbols();
+        DecimalFormatSymbols custom = new DecimalFormatSymbols();
         custom.setDecimalSeparator(',');
         custom.setGroupingSeparator('.');
         DecimalFormat df = new DecimalFormat("$###,###.##");
         df.setDecimalFormatSymbols(custom);
         currencyFormatter = df;
-
-        for(int i=0;i<list.size();i++){
-            mList.add(list.get(i));
-        }
     }
 
     @Override
@@ -80,65 +78,71 @@ public class storeAdapterSale extends BaseAdapter {
         super.notifyDataSetChanged();
     }
 
-    @SuppressLint("NewApi")
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
 
-        convertView = mInflater.inflate(R.layout.app_gridview_item_sale, null);
-
-        ImageView icon = (ImageView) convertView.findViewById(R.id.iconImage);
-
-        TextView name = (TextView) convertView.findViewById(R.id.testName);
-        TextView descrip = (TextView) convertView.findViewById(R.id.testDescrip);
-        TextView precio = (TextView) convertView.findViewById(R.id.testPrecio);
-        if(idioma == SHA_IDIOMA_ESPANOL) {
-            name.setText(mList.get(position).dt_nombre_es);
-            descrip.setText(mList.get(position).dt_descripcion_es);
-        }else{
-            name.setText(mList.get(position).dt_nombre_in);
-            descrip.setText(mList.get(position).dt_descripcion_in);
-        }
-
-        precio.setText(mList.get(position).dt_precio);
-        try{
-            String directorio = "/storage/emulated/0/HotelPrivado/"+mList.get(position).dt_nameImage;
-            Uri myUri = (Uri.parse(directorio));
-            Log.v("uri",myUri.toString());
-            icon.setImageURI(myUri);
-        }catch (Exception e){
-            Log.v("Store",e.getMessage());
+        if (convertView == null) {
+            convertView = mInflater.inflate(R.layout.app_gridview_item_sale, parent, false);
+            holder = new ViewHolder();
+            holder.icon = convertView.findViewById(R.id.iconImage);
+            holder.name = convertView.findViewById(R.id.testName);
+            holder.descrip = convertView.findViewById(R.id.testDescrip);
+            holder.precio = convertView.findViewById(R.id.testPrecio);
+            holder.bt_menos = convertView.findViewById(R.id.btMenos);
+            holder.bt_mas = convertView.findViewById(R.id.btMas);
+            holder.item = convertView.findViewById(R.id.tvSuma);
+            Log.v("uri","convertView");
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
 
 
-        Button bt_menos = (Button) convertView.findViewById(R.id.btMenos);
-        Button bt_mas = (Button) convertView.findViewById(R.id.btMas);
-        TextView item = (TextView) convertView.findViewById(R.id.tvSuma);
-        item.setText(mList.get(position).dt_num_articulos);
-        bt_menos.setOnClickListener(new View.OnClickListener() {
+        if (idioma == SHA_IDIOMA_ESPANOL) {
+            holder.name.setText(mList.get(position).dt_nombre_es);
+            holder.descrip.setText(mList.get(position).dt_descripcion_es);
+        } else {
+            holder.name.setText(mList.get(position).dt_nombre_in);
+            holder.descrip.setText(mList.get(position).dt_descripcion_in);
+        }
+
+        holder.precio.setText(mList.get(position).dt_precio);
+
+        try {
+            String directorio = "/storage/emulated/0/HotelPrivado/" + mList.get(position).dt_nameImage;
+            Uri myUri = Uri.parse(directorio);
+            Log.v("uri", myUri.toString());
+            holder.icon.setImageURI(myUri);
+        } catch (Exception e) {
+            Log.v("Store", e.getMessage());
+        }
+
+        holder.item.setText(mList.get(position).dt_num_articulos);
+
+        holder.bt_menos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mList.size() > 0){
+                if (mList.size() > 0) {
                     int num = Integer.valueOf(mList.get(position).dt_num_articulos);
-                    if(num>0){
+                    if (num > 0) {
                         num--;
                         mList.get(position).dt_num_articulos = String.valueOf(num);
                         DataProduct pro = null;
-                        if(num==0) {
-                            pro =  mList.get(position);
+                        if (num == 0) {
+                            pro = mList.get(position);
                             mList.remove(position);
                         }
                         notifyDataSetChanged(view.getId());
-                        interfaceAdapter.typeProductData(pro, 2,position);
+                        interfaceAdapter.typeProductData(pro, 2, position);
                     }
-                }else {
-                    interfaceAdapter.typeProductData(null, 3,position);
+                } else {
+                    interfaceAdapter.typeProductData(null, 3, position);
                 }
-
-
             }
         });
 
-        bt_mas.setOnClickListener(new View.OnClickListener() {
+        holder.bt_mas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int num = Integer.valueOf(mList.get(position).dt_num_articulos);
@@ -147,18 +151,19 @@ public class storeAdapterSale extends BaseAdapter {
                 adminBaseDatos.closeBaseDtos();
                 int max = array.get(0);
 
-                if(num < max){
+                if (num < max) {
                     num++;
                     mList.get(position).dt_num_articulos = String.valueOf(num);
                     notifyDataSetChanged(view.getId());
-                    interfaceAdapter.typeProductData(mList.get(position),1,position);
+                    interfaceAdapter.typeProductData(mList.get(position), 1, position);
                 }
-
             }
         });
-        return convertView;
 
+
+        return convertView;
     }
+
     public void setInteface(InterfaceAdpterSale interfaceAdapter){
         this.interfaceAdapter=interfaceAdapter;
     }
@@ -168,5 +173,13 @@ public class storeAdapterSale extends BaseAdapter {
     }
 
 
-
+    static class ViewHolder {
+        ImageView icon;
+        TextView name;
+        TextView descrip;
+        TextView precio;
+        Button bt_menos;
+        Button bt_mas;
+        TextView item;
+    }
 }

@@ -3,6 +3,7 @@ package com.esilva.hotelprivado;
 import static com.esilva.hotelprivado.Util.Constantes.CHANNEL_NOTIFICATION;
 import static com.esilva.hotelprivado.Util.Constantes.FILE_REPORT;
 import static com.esilva.hotelprivado.Util.Constantes.PACKAGE_FILE;
+import static com.esilva.hotelprivado.Util.Constantes.REPORT_TOTAL;
 import static com.esilva.hotelprivado.Util.Constantes.SHA_BASE;
 import static com.esilva.hotelprivado.Util.Constantes.SHA_IDIOMA;
 import static com.esilva.hotelprivado.Util.Constantes.SHA_IDIOMA_ESPANOL;
@@ -12,6 +13,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -35,6 +37,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
+import com.esilva.hotelprivado.Util.Reporte;
 import com.esilva.hotelprivado.Util.util;
 
 import android.animation.Animator;
@@ -46,6 +49,9 @@ import android.view.animation.AnimationUtils;
 
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 
@@ -118,6 +124,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 getBaseContext().getResources().updateConfiguration(config1, getBaseContext().getResources().getDisplayMetrics());
                 preferences.edit().putInt(SHA_IDIOMA,SHA_IDIOMA_ESPANOL).commit();
                 intent = new Intent(this, selectActivity.class);
+                //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 break;
             case R.id.bt_ingles:
@@ -128,6 +135,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 getBaseContext().getResources().updateConfiguration(config2, getBaseContext().getResources().getDisplayMetrics());
                 preferences.edit().putInt(SHA_IDIOMA,SHA_IDIOMA_INGLES).commit();
                 intent = new Intent(this, selectActivity.class);
+               // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 break;
             case R.id.bt_menu:
@@ -177,5 +185,29 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         Intent intent = new Intent(this,Driver_USB.class);
         startActivity(intent);
     }
+
+
+    ///////////////////////////////////////////////////////////////////////////////
+/*
+    private String getFechaOld(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, -1);
+        Date fechaAnterior = calendar.getTime();
+        SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(fechaAnterior);
+    }
+
+    private Boolean saveReportTst(){
+        Boolean ret = false;
+        String nameFile = "Reporte "+getFechaOld()+".txt";
+        Reporte reporte = new Reporte(null,this,true,true,true,true);
+        reporte.setDateTime(getFechaOld(),null,"00:30",null);
+        if(reporte.generarReporte(REPORT_TOTAL)){
+            reporte.setNameFile(nameFile);
+            return reporte.grabaReporte();
+        }
+        Log.v("ServiceBroadcastReceiver", "inicia el servicio SIN datos");
+        return false;
+    }*/
     
 }

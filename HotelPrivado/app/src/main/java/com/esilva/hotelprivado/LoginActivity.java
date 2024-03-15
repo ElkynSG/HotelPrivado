@@ -122,6 +122,7 @@ public class LoginActivity extends AppCompatActivity implements RegistroFragment
 
     private void finalizar(){
         Intent main = new Intent(this,MainActivity.class);
+        main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(main);
         this.finish();
     }

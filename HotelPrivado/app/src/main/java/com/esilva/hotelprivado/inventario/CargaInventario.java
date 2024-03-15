@@ -53,7 +53,7 @@ public class CargaInventario {
         }
         adminBaseDatos = new AdminBaseDatos(context);
         adminBaseDatos.deleteTableProd();
-        adminBaseDatos.deleteVentas();
+
         trama = readFileInventario(directorio);
         try {
             for(String line:trama){
@@ -97,6 +97,7 @@ public class CargaInventario {
 
     private List<String> readFileInventario(File file) {
         Boolean val = false;
+        boolean isTitle = false;
         String temp;
         List<String> data = new ArrayList<>();
 
@@ -104,9 +105,13 @@ public class CargaInventario {
 
             while ((temp = reader.readLine()) != null){
                 try {
-                    data.add(temp);
+                    if(isTitle)
+                        data.add(temp);
+                    else
+                        isTitle = true;
                 }catch (Exception e){
                     Log.e("hotel",e.getMessage());
+                    return null;
                 }
             }
 

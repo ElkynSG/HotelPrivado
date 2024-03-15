@@ -6,6 +6,7 @@ import static com.esilva.hotelprivado.Util.Constantes.REPORT_ALL;
 import static com.esilva.hotelprivado.Util.Constantes.REPORT_FIN;
 import static com.esilva.hotelprivado.Util.Constantes.REPORT_INI;
 import static com.esilva.hotelprivado.Util.Constantes.REPORT_PARTIAL;
+import static com.esilva.hotelprivado.Util.Constantes.REPORT_TOTAL;
 
 import android.app.Activity;
 import android.content.Context;
@@ -75,10 +76,7 @@ public class Reporte {
                     Log.v("grabar",e.getMessage());
                 }
             }
-/*
-            FileWriter escritor = new FileWriter(file);
-            escritor.write(fileDataOut);
-            escritor.close();*/
+
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(fileDataOut.getBytes(StandardCharsets.UTF_8));
             fos.flush();
@@ -111,13 +109,16 @@ public class Reporte {
                 dataVentas = adminBaseDatos.getAllVentas(isConAlcohol,isSinAlcohol,isSnacks,isSouvenir);
                 break;
             case REPORT_PARTIAL:
-                dataVentas = adminBaseDatos.getfechaPartialentas(date_start, hour_start,date_end, hour_end,isConAlcohol,isSinAlcohol,isSnacks,isSouvenir);
+                dataVentas = adminBaseDatos.getfechaPartialVentas(date_start, hour_start,date_end, hour_end,isConAlcohol,isSinAlcohol,isSnacks,isSouvenir);
                 break;
             case REPORT_FIN:
-                dataVentas = adminBaseDatos.getfechaFinVentas(date_end, hour_end,isConAlcohol,isSinAlcohol,isSnacks,isSouvenir);
+                dataVentas = adminBaseDatos.getfechaFiniVentas(date_end, hour_end,isConAlcohol,isSinAlcohol,isSnacks,isSouvenir);
                 break;
             case REPORT_INI:
                 dataVentas = adminBaseDatos.getfechaIniVentas(date_start, hour_start,isConAlcohol,isSinAlcohol,isSnacks,isSouvenir);
+                break;
+            case REPORT_TOTAL:
+                dataVentas = adminBaseDatos.getAllfechaVentas(date_start);
                 break;
             default:
                 dataVentas=null;
@@ -132,9 +133,14 @@ public class Reporte {
     }
     public Boolean armaDataString(List<DataVentas> dataVentas) {
         if(dataVentas==null || dataVentas.size()<1) {
-            if(mActivity!= null && isMessage)
-                util.showToast(R.drawable.fail,"Sin DATOS", mActivity);
-            return false;
+            if(mActivity!= null && isMessage) {
+                util.showToast(R.drawable.fail, "Sin DATOS", mActivity);
+                return false;
+            }else{
+                fileDataOut = date_start+" Sin Ventas\n";
+                return true;
+            }
+
         }
 
         TotalCon=0;
@@ -142,29 +148,29 @@ public class Reporte {
         TotalSnack=0;
         TotalSouvenirs=0;
 
-        fileDataOut = "Numero de Aprobacion,Fecha,Hora,Nombre,Cantidad,Subtotal\n";
+        fileDataOut = "Numero de Aprobacion,Fecha,Hora,Grupo,Nombre,Cantidad,Subtotal\n";
 
         if(isConAlcohol){
-            fileDataOut+="Con Alcohol\n";
+            //fileDataOut+="Con Alcohol\n";
             fileDataOut+=reportConAlcohol(dataVentas);
         }
 
         if(isSinAlcohol){
-            fileDataOut+="Sin Alcohol\n";
+            //fileDataOut+="Sin Alcohol\n";
             fileDataOut+=reportSinAlcohol(dataVentas);
         }
 
         if(isSnacks){
-            fileDataOut+="Snacks\n";
+            //fileDataOut+="Snacks\n";
             fileDataOut+=reportSnack(dataVentas);
         }
 
         if(isSouvenir){
-            fileDataOut+="Souvenirs\n";
+            //fileDataOut+="Souvenirs\n";
             fileDataOut+=reportSouvenirs(dataVentas);
         }
 
-        fileDataOut += "\n,,,,Gran Total,"+String.valueOf(TotalCon+TotalSin+TotalSnack+TotalSouvenirs)+"\n";
+        fileDataOut += "\n,,,,,Gran Total,"+String.valueOf(TotalCon+TotalSin+TotalSnack+TotalSouvenirs)+"\n";
 
         return true;
     }
@@ -175,11 +181,11 @@ public class Reporte {
 
         for(DataVentas temp:dataVentas){
             if(temp.getTypeProducto().equals("4")) {
-                repSovenirs +=  temp.getRepAproba() + "," + temp.getRepFechaTab() + "," + temp.getRepHoraTab() + "," + temp.getRepNomProd() + "," + temp.getRepCantidad() + "," + temp.getRepTotal() + "\n";
+                repSovenirs +=  temp.getRepAproba() + "," + temp.getRepFechaTab() + "," + temp.getRepHoraTab() + ",Souvenirs," + temp.getRepNomProd() + "," + temp.getRepCantidad() + "," + temp.getRepTotal() + "\n";
                 TotalSouvenirs += Integer.valueOf(temp.getRepTotal());
             }
         }
-        repSovenirs += ",,,,Total,"+String.valueOf(TotalSouvenirs)+"\n";
+        //repSovenirs += ",,,,,Total,"+String.valueOf(TotalSouvenirs)+"\n";
         return repSovenirs;
     }
 
@@ -188,11 +194,11 @@ public class Reporte {
         TotalSnack=0;
         for(DataVentas temp:dataVentas){
             if(temp.getTypeProducto().equals("3")) {
-                repSnack +=  temp.getRepAproba() + "," + temp.getRepFechaTab() + "," + temp.getRepHoraTab() + "," + temp.getRepNomProd() + "," + temp.getRepCantidad() + "," + temp.getRepTotal() + "\n";
+                repSnack +=  temp.getRepAproba() + "," + temp.getRepFechaTab() + "," + temp.getRepHoraTab() + ",Snaks," + temp.getRepNomProd() + "," + temp.getRepCantidad() + "," + temp.getRepTotal() + "\n";
                 TotalSnack += Integer.valueOf(temp.getRepTotal());
             }
         }
-        repSnack += ",,,,Total,"+String.valueOf(TotalSnack)+"\n";
+       // repSnack += ",,,,,Total,"+String.valueOf(TotalSnack)+"\n";
         return repSnack;
     }
 
@@ -201,11 +207,11 @@ public class Reporte {
         TotalCon=0;
         for(DataVentas temp:dataVentas){
             if(temp.getTypeProducto().equals("1")) {
-                repConAlcohol += temp.getRepAproba() + "," +  temp.getRepFechaTab() + "," + temp.getRepHoraTab() + "," + temp.getRepNomProd() + "," + temp.getRepCantidad() + "," + temp.getRepTotal() + "\n";
+                repConAlcohol += temp.getRepAproba() + "," +  temp.getRepFechaTab() + "," + temp.getRepHoraTab() + ",Con Alcohol," + temp.getRepNomProd() + "," + temp.getRepCantidad() + "," + temp.getRepTotal() + "\n";
                 TotalCon += Integer.valueOf(temp.getRepTotal());
             }
         }
-        repConAlcohol += ",,,,Total,"+String.valueOf(TotalCon)+"\n";
+       // repConAlcohol += ",,,,,Total,"+String.valueOf(TotalCon)+"\n";
         return repConAlcohol;
     }
 
@@ -214,11 +220,11 @@ public class Reporte {
         TotalSin=0;
         for(DataVentas temp:dataVentas){
             if(temp.getTypeProducto().equals("2")) {
-                repSinAlcohol += temp.getRepAproba() + "," + temp.getRepFechaTab() + "," + temp.getRepHoraTab() + "," + temp.getRepNomProd() + "," + temp.getRepCantidad() + "," + temp.getRepTotal() + "\n";
+                repSinAlcohol += temp.getRepAproba() + "," + temp.getRepFechaTab() + "," + temp.getRepHoraTab() + ",Sin Alcohol," + temp.getRepNomProd() + "," + temp.getRepCantidad() + "," + temp.getRepTotal() + "\n";
                 TotalSin += Integer.valueOf(temp.getRepTotal());
             }
         }
-        repSinAlcohol += ",,,,Total,"+String.valueOf(TotalSin)+"\n";
+        //repSinAlcohol += ",,,,,Total,"+String.valueOf(TotalSin)+"\n";
         return repSinAlcohol;
     }
 

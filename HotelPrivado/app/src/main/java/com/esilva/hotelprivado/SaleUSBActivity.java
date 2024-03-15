@@ -271,7 +271,8 @@ public class SaleUSBActivity extends AppCompatActivity implements View.OnClickLi
             hora_tab = sdf2.format(resultdate);
 
             for (DataProduct product : miCArritoVentas) {
-                adminBaseDatos.insertVenta(numAprobacion, fecha, product.dt_id_producto, product.dt_nombre_es, product.dt_precio, product.dt_num_articulos, fecha_tab, hora_tab, product.dt_type_product, recibo);
+                //adminBaseDatos.insertInventario(numAprobacion, fecha, product.dt_id_producto, product.dt_nombre_es, product.dt_precio, product.dt_num_articulos, fecha_tab, hora_tab, product.dt_type_product, recibo);
+                adminBaseDatos.insertVentas(numAprobacion, fecha, product.dt_id_producto, product.dt_nombre_es, product.dt_precio, product.dt_num_articulos, fecha_tab, hora_tab, product.dt_type_product, recibo);
             }
             adminBaseDatos.closeBaseDtos();
             isGuardaCarrito = false;
@@ -456,6 +457,7 @@ public class SaleUSBActivity extends AppCompatActivity implements View.OnClickLi
 
     private void finalizar(){
         Intent main = new Intent(this,MainActivity.class);
+        main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         desconnect();
         startActivity(main);
         this.finish();

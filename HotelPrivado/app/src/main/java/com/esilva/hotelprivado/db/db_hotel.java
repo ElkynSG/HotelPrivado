@@ -30,20 +30,35 @@ public class db_hotel extends SQLiteOpenHelper {
     public static final String BASE_USUARIO = "usuario";
     public static final String BASE_CONTRASENA="contrasena";
 
-    //  TABLA  REPORTE
-    public static final String REP_NAME_TABLE = "ventas";
+    //  TABLA  INVENTARIO
+    public static final String INV_NAME_TABLE = "inventario";
 
-    public static final String REP_NUM_APROB="numAprob";
-    public static final String REP_FECHA="fecha";
-    public static final String REP_COD_PROD="cod_prod";
-    public static final String REP_NOM_PROD="nameProd";
-    public static final String REP_PRECIO="precio";
-    public static final String REP_CANTIDAD="canProd";
-    public static final String REP_FECHA_TAB="fecha_tab";
-    public static final String REP_HORA_TAB="hora_tab";
-    public static final String REP_TOTAL="total";
-    public static final String REP_TYPE="type_prod";
-    public static final String REP_RECIBO="recibo";
+    public static final String INV_NUM_APROB="numAprob";
+    public static final String INV_FECHA="fecha";
+    public static final String INV_COD_PROD="cod_prod";
+    public static final String INV_NOM_PROD="nameProd";
+    public static final String INV_PRECIO="precio";
+    public static final String INV_CANTIDAD="canProd";
+    public static final String INV_FECHA_TAB="fecha_tab";
+    public static final String INV_HORA_TAB="hora_tab";
+    public static final String INV_TOTAL="total";
+    public static final String INV_TYPE="type_prod";
+    public static final String INV_RECIBO="recibo";
+
+    //  TABLA  VENTAS
+    public static final String VEN_NAME_TABLE = "ventas";
+
+    public static final String VEN_NUM_APROB="numAprob";
+    public static final String VEN_FECHA="fecha";
+    public static final String VEN_COD_PROD="cod_prod";
+    public static final String VEN_NOM_PROD="nameProd";
+    public static final String VEN_PRECIO="precio";
+    public static final String VEN_CANTIDAD="canProd";
+    public static final String VEN_FECHA_TAB="fecha_tab";
+    public static final String VEN_HORA_TAB="hora_tab";
+    public static final String VEN_TOTAL="total";
+    public static final String VEN_TYPE="type_prod";
+    public static final String VEN_RECIBO="recibo";
 
 
     public db_hotel(Context context, SQLiteDatabase.CursorFactory factory) {
@@ -72,20 +87,35 @@ public class db_hotel extends SQLiteOpenHelper {
                 BASE_CONTRASENA             +" text)";
         BaseDeDatos.execSQL(baseUsuario);
 
-        String reporte = "CREATE TABLE "+ REP_NAME_TABLE+"(" +
+        String reporte = "CREATE TABLE "+ INV_NAME_TABLE+"(" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                REP_NUM_APROB   +" text, " +
-                REP_FECHA       +" text, " +
-                REP_COD_PROD    +" text, " +
-                REP_NOM_PROD    +" text, " +
-                REP_PRECIO      +" text, " +
-                REP_CANTIDAD    +" text, " +
-                REP_FECHA_TAB   +" text, " +
-                REP_HORA_TAB    +" text, " +
-                REP_TOTAL       +" text, " +
-                REP_TYPE        +" text, " +
-                REP_RECIBO      +" text)";
+                INV_NUM_APROB   +" text, " +
+                INV_FECHA       +" text, " +
+                INV_COD_PROD    +" text, " +
+                INV_NOM_PROD    +" text, " +
+                INV_PRECIO      +" text, " +
+                INV_CANTIDAD    +" text, " +
+                INV_FECHA_TAB   +" text, " +
+                INV_HORA_TAB    +" text, " +
+                INV_TOTAL       +" text, " +
+                INV_TYPE        +" text, " +
+                INV_RECIBO      +" text)";
         BaseDeDatos.execSQL(reporte);
+
+        String ventas = "CREATE TABLE "+ VEN_NAME_TABLE+"(" +
+                "ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                VEN_NUM_APROB   +" text, " +
+                VEN_FECHA       +" text, " +
+                VEN_COD_PROD    +" text, " +
+                VEN_NOM_PROD    +" text, " +
+                VEN_PRECIO      +" text, " +
+                VEN_CANTIDAD    +" text, " +
+                VEN_FECHA_TAB   +" text, " +
+                VEN_HORA_TAB    +" text, " +
+                VEN_TOTAL       +" text, " +
+                VEN_TYPE        +" text, " +
+                VEN_RECIBO      +" text)";
+        BaseDeDatos.execSQL(ventas);
     }
 
     @Override
