@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@drawable/bagrounditems">
+
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:background="#fff"
+		android:padding="16dp">
+
+		<ImageView
+			android:id="@+id/produ_iconImage"
+			android:layout_width="150dp"
+			android:layout_height="200dp"
+			android:layout_marginLeft="20dp"
+			android:layout_marginRight="30dp"
+			android:background="@drawable/imagebackground"/>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_marginLeft="10dp"
+			android:orientation="vertical">
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:orientation="vertical"
+				android:layout_weight="0.9">
+
+				<TextView
+					android:id="@+id/prod_testName"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textColor="@color/black"
+					android:text="grd"
+					android:textSize="28sp"
+					android:layout_marginBottom="20dp"/>
+
+				<TextView
+					android:id="@+id/prod_testDescrip"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textColor="@color/black"
+					android:text="grd"
+					android:textSize="18sp"/>
+				<TextView
+					android:id="@+id/prod_testPrecio"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textColor="@color/black"
+					android:textStyle="bold"
+					android:text="$10.234"
+					android:textSize="22sp"/>
+
+				<LinearLayout
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:gravity="bottom"
+					android:orientation="horizontal">
+
+
+
+					<TextView
+						android:id="@+id/prod_tvSuma"
+						android:layout_width="wrap_content"
+						android:layout_height="40dp"
+						android:textAlignment="center"
+						android:textColor="@color/black"
+						android:textSize="20sp"
+						android:textStyle="bold"
+						android:layout_marginBottom="0dp"
+						android:text="Disponible: "/>
+
+					<EditText
+						android:id="@+id/prod_btMas"
+						android:layout_width="80dp"
+						android:layout_height="60dp"
+						android:gravity="center"
+						android:layout_marginBottom="0dp"
+						android:textSize="30sp"
+						android:maxLength="3"
+						android:inputType="number"
+						android:text="0"/>
+				</LinearLayout>
+
+			</LinearLayout>
+		</LinearLayout>
+
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:layout_marginBottom="10dp"
+		android:padding="10dp">
+
+		<Button
+			android:id="@+id/prod_bt_cancel"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:text="@string/button_cancel_dialog_indiv"
+			android:textColor="@color/white"
+			android:background="#AE0505"
+			android:paddingRight="10dp"
+			android:paddingLeft="10dp"
+			android:textSize="25sp"
+			android:layout_marginRight="10dp"/>
+
+		<Button
+			android:id="@+id/prod_bt_modificar"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:textSize="25sp"
+			android:text="@string/button_ok_dialog_indiv"
+			android:textColor="@color/white"
+			android:background="#4BA648"
+			android:paddingRight="10dp"
+			android:paddingLeft="10dp"
+			android:layout_marginLeft="10dp"/>
+
+	</LinearLayout>
+
+
+</LinearLayout>

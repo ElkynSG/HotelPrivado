@@ -13,7 +13,24 @@ public class DataVentas {
     private String repTotal="";
     private String typeProducto="";
     private String recibo="";
+    private String idProducto="";
+    private int idTr;
 
+    public String getIdProducto() {
+        return idProducto;
+    }
+
+    public void setIdProducto(String idProducto) {
+        this.idProducto = idProducto;
+    }
+
+    public int getIdTr() {
+        return idTr;
+    }
+
+    public void setIdTr(int idTr) {
+        this.idTr = idTr;
+    }
 
     public String getRecibo() {
         return recibo;

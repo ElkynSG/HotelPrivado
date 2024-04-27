@@ -168,7 +168,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.bt_cargar_data:
-                CargaInventario cargaInventario = new CargaInventario(this);
+                Intent intent4 = new Intent(this,InventarioActivity.class);
+                startActivity(intent4);
+                /*CargaInventario cargaInventario = new CargaInventario(this);
                 if(cargaInventario.isExite()){
                     showDialog("Productos","Ya existe productos cargados. Desea reemplazarlos?");
                 }else{
@@ -177,7 +179,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                     }else {
                         showDialogConfir("Productos","Carga de datos Fallida");
                     }
-                }
+                }*/
 
                 break;
             case R.id.bt_descargar:
@@ -221,39 +223,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         }else{
             Log.d("DP_DLOG","guardarReporteTotal "+"no genera reporte");
         }
-    }
-
-    private void showDialog(String title,String message){
-        customDialog = new Dialog(SettingActivity.this);
-        customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        customDialog.setCancelable(false);
-        customDialog.setContentView(R.layout.login_dialog_setti);
-
-        TextView tv_titulo = customDialog.findViewById(R.id.diTitleialog);
-        TextView tv_message = customDialog.findViewById(R.id.txt_dialog);
-        tv_titulo.setText(title);
-        tv_message.setText(message);
-        customDialog.findViewById(R.id.btn_dialog_no).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                customDialog.dismiss();
-            }
-        });
-        customDialog.findViewById(R.id.btn_dialog_si).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                guardarReporteTotal();
-                customDialog.dismiss();
-                if(reemplazarProdu()){
-                    showDialogConfir("Productos","Carga de datos Exitosa");
-                }else {
-                    showDialogConfir("Productos","Carga de datos Fallida");
-                }
-            }
-        });
-
-        customDialog.show();
-
     }
 
     private void showDialogConfir(String title,String message){
@@ -348,11 +317,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
-    private Boolean reemplazarProdu(){
-        CargaInventario cargaInventario = new CargaInventario(this);
-        cargaInventario.eliminarTabla();
-        return  cargaInventario.cargarDatos();
-    }
 
     private void finalizar(){
         Intent main = new Intent(this,MainActivity.class);

@@ -69,7 +69,7 @@
                     android:hint="Contraseña"
                     android:maxLength="15"
                     android:textColor="@color/black"
-                    android:inputType="textPassword"/>
+                    android:inputType="text"/>
 
             </LinearLayout>
 

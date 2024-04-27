@@ -7,6 +7,7 @@ import static com.esilva.hotelprivado.Util.Constantes.REPORT_PARTIAL;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -364,11 +365,14 @@ public class ReportActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(View view) {
                 if(!name.getText().toString().isEmpty()){
-                    StrNameReport = name.getText().toString()+".txt";
+                    StrNameReport = name.getText().toString()+".xlsx";
                     reporte.setNameFile(StrNameReport);
-                    reporte.grabaReporte();
+                    //customDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
                     customDialog.dismiss();
-                    util.showToast(R.drawable.ok,"Reporte Generado",  ReportActivity.this);
+                    generarReporte();
+
+
+                    //util.showToast(R.drawable.ok,"Reporte Generado",  ReportActivity.this);
                 }
             }
         });
@@ -439,5 +443,32 @@ public class ReportActivity extends AppCompatActivity implements View.OnClickLis
 
         customDialog.show();
 
+    }
+    private ProgressDialog progressDialog;
+
+    private void generarReporte() {
+        progressDialog = new ProgressDialog(ReportActivity.this);
+        progressDialog.setMessage("Generando Reporte");
+        progressDialog.show();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                boolean b = reporte.buildReport();
+                showResult(b);
+            }
+        }).start();
+    }
+
+    private void showResult(boolean result){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.dismiss();
+                if(result)
+                    util.showToast(R.drawable.ok,"Reporte Generado",  ReportActivity.this);
+                else
+                    util.showToast(R.drawable.fail,"Error generando Reporte",  ReportActivity.this);
+            }
+        });
     }
 }

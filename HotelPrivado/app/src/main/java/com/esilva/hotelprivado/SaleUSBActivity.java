@@ -272,7 +272,7 @@ public class SaleUSBActivity extends AppCompatActivity implements View.OnClickLi
 
             for (DataProduct product : miCArritoVentas) {
                 //adminBaseDatos.insertInventario(numAprobacion, fecha, product.dt_id_producto, product.dt_nombre_es, product.dt_precio, product.dt_num_articulos, fecha_tab, hora_tab, product.dt_type_product, recibo);
-                adminBaseDatos.insertVentas(numAprobacion, fecha, product.dt_id_producto, product.dt_nombre_es, product.dt_precio, product.dt_num_articulos, fecha_tab, hora_tab, product.dt_type_product, recibo);
+                adminBaseDatos.insertVentas(numAprobacion, fecha, product.dt_id_producto, product.dt_nombre_es, product.dt_precio, product.dt_num_articulos, fecha_tab, hora_tab, product.dt_type_product, recibo,product.dt_id_producto);
             }
             adminBaseDatos.closeBaseDtos();
             isGuardaCarrito = false;

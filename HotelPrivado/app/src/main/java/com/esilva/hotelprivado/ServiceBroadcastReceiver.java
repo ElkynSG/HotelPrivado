@@ -43,14 +43,6 @@ public class ServiceBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    private String getNameFile(){
-        Calendar calendar = Calendar.getInstance();
-        Date date = calendar.getTime();
-        SimpleDateFormat sdf;
-        sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm");
-        return nameFile="Reporte_"+sdf.format(date)+".txt";
-    }
-
     private String getFechaOld(){
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_YEAR, -1);
@@ -61,12 +53,12 @@ public class ServiceBroadcastReceiver extends BroadcastReceiver {
 
     private Boolean saveReport(Context context){
         Boolean ret = false;
-        nameFile = "Reporte "+getFechaOld()+".txt";
+        nameFile = "Reporte "+getFechaOld()+".xlsx";
         Reporte reporte = new Reporte(null,context,true,true,true,true);
         reporte.setDateTime(getFechaOld(),null,"00:30",null);
         if(reporte.generarReporte(REPORT_TOTAL)){
             reporte.setNameFile(nameFile);
-            return reporte.grabaReporte();
+            return reporte.buildReport();
         }
         Log.v("ServiceBroadcastReceiver", "inicia el servicio SIN datos");
         return false;

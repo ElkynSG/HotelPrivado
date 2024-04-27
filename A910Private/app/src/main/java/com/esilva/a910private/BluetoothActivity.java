@@ -149,7 +149,7 @@ public class BluetoothActivity extends AppCompatActivity implements View.OnClick
 
     }
     private void inicioServer(){
-        BluetoothActivity.ServerClass serverClass = new BluetoothActivity.ServerClass();
+        ServerClass serverClass = new BluetoothActivity.ServerClass();
         serverClass.start();
         stateTr = STATE_TR_WAIT;
     }

@@ -9,6 +9,7 @@ public class Constantes {
     public static final String SHA_IDIOMA = "idioma";
         public static final int SHA_IDIOMA_ESPANOL = 1;
         public static final int SHA_IDIOMA_INGLES = 2;
+    public static final String SHA_ID_TRANS = "idTrans";
     public static final long DISCONNECT_TIMEOUT = 30000;
     public static final String CHANNEL_NOTIFICATION = "201";
     public static final String PACKAGE_FILE = "HotelPrivado";
@@ -41,6 +42,11 @@ public class Constantes {
     public static final int re_hora2 =   5;
     public static final int re_minu2 =   0;
     public static final int re_seg2 =    0;
+
+    public static final int TYPE_PROD_ALCOHOL =    1;
+    public static final int TYPE_PROD_SIN_ALCOHOL =2;
+    public static final int TYPE_PROD_SNACK =      3;
+    public static final int TYPE_PROD_SUVENIRS =   4;
 
     /////////////////////////////    COMANDOS     ///////////////////////////////////////////
     public static final String CM_SALE =        "CM_SAL";

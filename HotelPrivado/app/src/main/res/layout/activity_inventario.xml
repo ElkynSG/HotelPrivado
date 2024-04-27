@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo"
+    tools:context=".InventarioActivity">
+
+    <RelativeLayout
+        android:id="@+id/encabezadosett"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:background="#fff"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+
+            <ImageView
+                android:gravity="center"
+                android:id="@+id/backSelectInve"
+                android:layout_width="60dp"
+                android:layout_height="70dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/ic_back_black" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PRIVADO"
+                    android:textSize="30dp"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="boutique rooms"
+                    android:textColor="@color/black"
+                    android:layout_below="@+id/tit"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideVertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <LinearLayout
+        android:layout_width="500dp"
+        android:layout_height="200dp"
+        android:gravity="center"
+        android:padding="40dp"
+        android:background="@drawable/bagroundsetting"
+        android:orientation="vertical"
+
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guideHorizontal"
+        app:layout_constraintEnd_toStartOf="@id/guideVertical"
+        app:layout_constraintTop_toBottomOf="@id/encabezadosett">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            android:paddingLeft="20dp"
+            android:drawableLeft="@drawable/productos"
+            android:background="@color/white"
+            android:text="Actualizacion Total"/>
+
+        <Button
+            android:id="@+id/bt_total"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Cargar archivo de productos"
+            android:textSize="22dp"
+            android:textColor="@color/white"
+            android:background="#B89660" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="500dp"
+        android:layout_height="200dp"
+        android:background="@drawable/bagroundsetting"
+        android:gravity="center"
+        android:orientation="vertical"
+
+        android:padding="30dp"
+        app:layout_constraintBottom_toBottomOf="@id/guideHorizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideVertical"
+        app:layout_constraintTop_toBottomOf="@id/encabezadosett">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/productos"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:text="Actualizacion individual"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/bt_individual"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#B89660"
+            android:text="Actualizar Item"
+            android:textColor="@color/white"
+            android:textSize="22dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Actualizar Inventario"
+        android:textColor="@color/white"
+        android:textSize="35sp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideHorizontal"
+        app:layout_constraintVertical_bias="0.01" />
+
+    <LinearLayout
+        android:id="@+id/ly_total"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:background="#2fff"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textTitle">
+
+        <Button
+            android:id="@+id/bt_cargar_total"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="Cargar archivo de productos"
+            android:textSize="22dp"
+            android:textColor="@color/white"
+            android:background="#B89660" />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ly_individual"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:background="#2fff"
+        android:visibility="gone"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textTitle">
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+            <Button
+                android:id="@+id/bt_alcohol"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="@string/id_alcohol"
+                android:textSize="30dp"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:background="@color/bt_alcohol"
+                android:layout_margin="20dp"
+                 />
+            <Button
+                android:id="@+id/bt_snacks"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="@string/id_snaks"
+                android:textSize="30dp"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:background="@color/bt_snaks"
+                android:drawablePadding="10dp"
+                android:layout_margin="20dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/bt_sin_alcohol"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="@string/id_sin_alcohol"
+                android:textSize="30dp"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:background="@color/bt_sin_alcohol"
+                android:layout_margin="20dp" />
+            <Button
+                android:id="@+id/bt_suvenirs"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="@string/id_souvenir"
+                android:textSize="30dp"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:background="@color/bt_souvenirs"
+                android:drawablePadding="10dp"
+                android:layout_margin="20dp"
+/>
+
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

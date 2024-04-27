@@ -17,8 +17,7 @@
         android:numColumns="4"
         android:layout_marginTop="20dp"
         android:horizontalSpacing="10dp"
-        android:verticalSpacing="40dp"
-        />
+        android:verticalSpacing="40dp" />
 
     </LinearLayout>
 </FrameLayout>

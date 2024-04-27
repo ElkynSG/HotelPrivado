@@ -32,10 +32,26 @@
     <string name="sale_pagar">Pagar</string>
     <string name="sale_cancelar">Cancelar</string>
     <string name="bt_no_config">Bluetooth NO configurado</string>
-    <string name="instruccion">Por favor siga las instrucciones en el datafono .....</string>
+    <string name="instruccion">Por favor siga las instrucciones en la terminal de pago....</string>
     <string name="dialog_item_agregar">Agregar</string>
     <string name="instrucc_voz1">Por favor siga las instrucciones en la terminal de pago</string>
     <string name="instrucc_recoja">Transaccion exitosa. Por favor recoja sus productos</string>
+    <string name="instrucc_fallida">Transaccion Fallida. Intente de nuevo</string>
+
+    <string name="conectandoBt">Conectando con Dispositivo</string>
+    <string name="sync">Sincronizando</string>
+    <string name="notificaCompra">Enviando compra</string>
+    <string name="verificandoCompra">Verificando compra</string>
+    <string name="imprimiedo">Imprimiendo</string>
+
+    <string name="persmisoBt">Error: Sin permisos de Bluetooth</string>
+    <string name="errorConectandoBt">Error: Conectando bluetooth</string>
+    <string name="errorCheckConexion">Error: Revisando Conexion</string>
+    <string name="errorSincronizando">Error: Sincronizando</string>
+    <string name="errorCompra">Error: Notificando Compra</string>
+    <string name="transacExitosa">Transaccion Exitosa</string>
+    <string name="transacFallida">Transacción fallida</string>
+    <string name="errorEsperando">Error: Esperando Respuesta</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -49,6 +65,11 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+
+    <!-- TODO: carga de productos -->
+    <string name="button_cancel_dialog_indiv">Cancelar</string>
+    <string name="button_ok_dialog_indiv">Modificar</string>
+
 
 
 </resources>

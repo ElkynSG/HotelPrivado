@@ -5,7 +5,8 @@
   android:orientation="vertical"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-	android:background="@drawable/imagebackground">
+	android:paddingTop="20dp"
+  android:background="@drawable/baground_carrito">
 
 	<TextView
 		android:layout_width="match_parent"
@@ -13,9 +14,11 @@
 		android:textColor="@color/black"
 		android:text="@string/dialog_sale_title"
 		android:gravity="center"
-		android:textSize="30sp"
+		android:textSize="35sp"
+		android:textStyle="bold"
 		android:padding="10dp"
-		android:background="#EEE"/>
+		android:layout_marginBottom="10dp"
+		android:background="@drawable/baground_carrito"/>
 
 	<LinearLayout
 		android:layout_width="match_parent"
@@ -30,6 +33,7 @@
 		android:numColumns="1"
 		android:paddingLeft="20dp"
 		android:paddingRight="20dp"
+		android:background="@color/white"
 		android:horizontalSpacing="40dp"
 		android:verticalSpacing="40dp" />
 
@@ -47,7 +51,7 @@
 			android:text="@string/dialog_sale_seguir"
 			android:textColor="@color/white"
 			android:drawableLeft="@drawable/seguir"
-			android:background="#EE0303"
+			android:background="@drawable/baground_seguir_com"
 			android:paddingRight="10dp"
 			android:paddingLeft="10dp"
 			android:textSize="25sp"
@@ -62,7 +66,7 @@
 			android:text="@string/dialog_sale_pagar"
 			android:textColor="@color/white"
 			android:drawableLeft="@drawable/pay"
-			android:background="#5AD255"
+			android:background="@drawable/baground_agregar"
 			android:paddingRight="10dp"
 			android:paddingLeft="10dp"
 			android:layout_marginLeft="10dp"/>

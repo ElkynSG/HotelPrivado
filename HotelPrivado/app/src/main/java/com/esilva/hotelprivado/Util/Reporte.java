@@ -2,6 +2,7 @@ package com.esilva.hotelprivado.Util;
 
 
 import static com.esilva.hotelprivado.Util.Constantes.FILE_REPORT;
+import static com.esilva.hotelprivado.Util.Constantes.PACKAGE_FILE;
 import static com.esilva.hotelprivado.Util.Constantes.REPORT_ALL;
 import static com.esilva.hotelprivado.Util.Constantes.REPORT_FIN;
 import static com.esilva.hotelprivado.Util.Constantes.REPORT_INI;
@@ -17,10 +18,19 @@ import com.esilva.hotelprivado.R;
 import com.esilva.hotelprivado.db.AdminBaseDatos;
 import com.esilva.hotelprivado.db.DataVentas;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -36,6 +46,8 @@ public class Reporte {
     private String date_start,date_end,hour_start,hour_end;
     private String fileDataOut;
     private Boolean isMessage;
+
+    List<DataVentas> dataVentas=null;
 
     public Reporte(Activity activity, Context context,
                    Boolean conAlcohol,Boolean sinAlcohol,Boolean snacks,Boolean souvenir) {
@@ -102,7 +114,7 @@ public class Reporte {
         return  getDataReporte();
     }
     private Boolean getDataReporte(){
-        List<DataVentas> dataVentas=null;
+
         AdminBaseDatos adminBaseDatos = new AdminBaseDatos(mContext);
         switch (typeReporte){
             case REPORT_ALL:
@@ -125,13 +137,17 @@ public class Reporte {
                 break;
         }
         adminBaseDatos.closeBaseDtos();
-        return armaDataString(dataVentas);
+
+        return true;
+
+        //return buildReport();
+        //return armaDataString(dataVentas);
     }
 
     public void setIsShowMessage(Boolean isSMS){
         isMessage = isSMS;
     }
-    public Boolean armaDataString(List<DataVentas> dataVentas) {
+    public Boolean TotalizarVentas(List<DataVentas> dataVentas) {
         if(dataVentas==null || dataVentas.size()<1) {
             if(mActivity!= null && isMessage) {
                 util.showToast(R.drawable.fail, "Sin DATOS", mActivity);
@@ -170,6 +186,8 @@ public class Reporte {
             fileDataOut+=reportSouvenirs(dataVentas);
         }
 
+        //buildReport(dataVentas);
+
         fileDataOut += "\n,,,,,Gran Total,"+String.valueOf(TotalCon+TotalSin+TotalSnack+TotalSouvenirs)+"\n";
 
         return true;
@@ -181,7 +199,7 @@ public class Reporte {
 
         for(DataVentas temp:dataVentas){
             if(temp.getTypeProducto().equals("4")) {
-                repSovenirs +=  temp.getRepAproba() + "," + temp.getRepFechaTab() + "," + temp.getRepHoraTab() + ",Souvenirs," + temp.getRepNomProd() + "," + temp.getRepCantidad() + "," + temp.getRepTotal() + "\n";
+                //repSovenirs +=  temp.getRepAproba() + "," + temp.getRepFechaTab() + "," + temp.getRepHoraTab() + ",Souvenirs," + temp.getRepNomProd() + "," + temp.getRepCantidad() + "," + temp.getRepTotal() + "\n";
                 TotalSouvenirs += Integer.valueOf(temp.getRepTotal());
             }
         }
@@ -194,7 +212,7 @@ public class Reporte {
         TotalSnack=0;
         for(DataVentas temp:dataVentas){
             if(temp.getTypeProducto().equals("3")) {
-                repSnack +=  temp.getRepAproba() + "," + temp.getRepFechaTab() + "," + temp.getRepHoraTab() + ",Snaks," + temp.getRepNomProd() + "," + temp.getRepCantidad() + "," + temp.getRepTotal() + "\n";
+                //repSnack +=  temp.getRepAproba() + "," + temp.getRepFechaTab() + "," + temp.getRepHoraTab() + ",Snaks," + temp.getRepNomProd() + "," + temp.getRepCantidad() + "," + temp.getRepTotal() + "\n";
                 TotalSnack += Integer.valueOf(temp.getRepTotal());
             }
         }
@@ -207,7 +225,7 @@ public class Reporte {
         TotalCon=0;
         for(DataVentas temp:dataVentas){
             if(temp.getTypeProducto().equals("1")) {
-                repConAlcohol += temp.getRepAproba() + "," +  temp.getRepFechaTab() + "," + temp.getRepHoraTab() + ",Con Alcohol," + temp.getRepNomProd() + "," + temp.getRepCantidad() + "," + temp.getRepTotal() + "\n";
+               // repConAlcohol += temp.getRepAproba() + "," +  temp.getRepFechaTab() + "," + temp.getRepHoraTab() + ",Con Alcohol," + temp.getRepNomProd() + "," + temp.getRepCantidad() + "," + temp.getRepTotal() + "\n";
                 TotalCon += Integer.valueOf(temp.getRepTotal());
             }
         }
@@ -220,7 +238,7 @@ public class Reporte {
         TotalSin=0;
         for(DataVentas temp:dataVentas){
             if(temp.getTypeProducto().equals("2")) {
-                repSinAlcohol += temp.getRepAproba() + "," + temp.getRepFechaTab() + "," + temp.getRepHoraTab() + ",Sin Alcohol," + temp.getRepNomProd() + "," + temp.getRepCantidad() + "," + temp.getRepTotal() + "\n";
+               // repSinAlcohol += temp.getRepAproba() + "," + temp.getRepFechaTab() + "," + temp.getRepHoraTab() + ",Sin Alcohol," + temp.getRepNomProd() + "," + temp.getRepCantidad() + "," + temp.getRepTotal() + "\n";
                 TotalSin += Integer.valueOf(temp.getRepTotal());
             }
         }
@@ -228,5 +246,166 @@ public class Reporte {
         return repSinAlcohol;
     }
 
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private File template;
+    private String rutaFile;
+    private final String TEMPLATE_INVENTARIO = "template.xlsx";
+    public boolean buildReport(){
+        if(!isExitFileTemplate())
+            copyTemplate();
+        createFileDir();
+        return createReport();
+    }
+
+    private boolean createReport() {
+        boolean bRet = false;
+        boolean isVentas = true;
+        int conta = 6;
+        Row rowNum;
+
+        FileInputStream fis = null;
+        try {
+
+            fis = new FileInputStream(template);
+            Workbook workbook = new XSSFWorkbook(fis);
+            Sheet sheet = workbook.getSheetAt(0);
+
+            if(dataVentas==null || dataVentas.size()<1) {
+                if(mActivity!= null && isMessage) {
+                    mActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            util.showToast(R.drawable.fail, "Sin DATOS", mActivity);
+                        }
+                    });
+
+                    return false;
+                }else{
+                    Row newRow = sheet.createRow(1);
+                    Cell cell1 = newRow.createCell(0);
+                    cell1.setCellValue("Sin VENTAS");
+                    isVentas = false;
+                }
+
+            }
+
+            if(isVentas) {
+
+                TotalizarVentas(dataVentas);
+                for (int i = 0; i < dataVentas.size(); i++) {
+                    Row newRow = sheet.createRow(i + 1);
+                    Cell cell1 = newRow.createCell(0);
+                    cell1.setCellValue(String.valueOf(i+1));
+
+                    Cell cell2 = newRow.createCell(1);
+                    cell2.setCellValue(dataVentas.get(i).getRepAproba());
+
+                    Cell cell3 = newRow.createCell(2);
+                    cell3.setCellValue(dataVentas.get(i).getRepFechaTab());
+
+                    Cell cell4 = newRow.createCell(3);
+                    cell4.setCellValue(dataVentas.get(i).getRepHoraTab());
+
+                    Cell cell5 = newRow.createCell(4);
+                    switch (dataVentas.get(i).getTypeProducto()){
+                        case "1":
+                            cell5.setCellValue("Con Alcohol");
+                            break;
+                        case "2":
+                            cell5.setCellValue("Sin Alcohol");
+                            break;
+                        case "3":
+                            cell5.setCellValue("Snaks");
+                            break;
+                        case "4":
+                            cell5.setCellValue("Suvenirs");
+                            break;
+                        default:
+                            cell5.setCellValue("no registra");
+                            break;
+                    }
+
+                    Cell cell6 = newRow.createCell(5);
+                    cell6.setCellValue(dataVentas.get(i).getRepNomProd());
+
+                    Cell cell7 = newRow.createCell(6);
+                    cell7.setCellValue(dataVentas.get(i).getRepCantidad());
+
+                    Cell cell8 = newRow.createCell(7);
+                    cell8.setCellValue(dataVentas.get(i).getRepTotal());
+                }
+
+                Row newRow = sheet.createRow(sheet.getLastRowNum() + 1);
+                Cell cell1 = newRow.createCell(6);
+                cell1.setCellValue("Total");
+
+                Cell cell2 = newRow.createCell(7);
+                cell2.setCellValue(String.valueOf(String.valueOf(TotalCon + TotalSin + TotalSnack + TotalSouvenirs)));
+            }
+            File path2 = new File(Environment.getExternalStorageDirectory(), FILE_REPORT+"/"+nameFile);
+
+            if(path2.exists()) {
+                path2.delete();
+            }
+
+
+            try {
+                FileOutputStream outputStream = new FileOutputStream(path2);
+                workbook.write(outputStream);
+                outputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+                bRet = false;
+            }
+
+            bRet = true;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            bRet = false;
+        } catch (IOException e) {
+            e.printStackTrace();
+            bRet = false;
+        }
+        return bRet;
+    }
+
+    private void createFileDir() {
+        rutaFile = PACKAGE_FILE;
+        File directorio2 = new File(Environment.getExternalStorageDirectory(), FILE_REPORT);
+        if (!directorio2.exists()) {
+            directorio2.mkdirs();
+        }
+    }
+
+    private void copyTemplate(){
+        File outputFile;
+        InputStream inputStream;
+
+        inputStream = mContext.getResources().openRawResource(R.raw.template);
+        outputFile = new File(mContext.getFilesDir(), TEMPLATE_INVENTARIO);
+
+        try {
+            FileOutputStream outputStream = new FileOutputStream(outputFile);
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, read);
+            }
+            inputStream.close();
+            outputStream.flush();
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean isExitFileTemplate() {
+        template = new File(mContext.getFilesDir(), TEMPLATE_INVENTARIO);
+        if(template.exists()) {
+            return true;
+        }
+        return false;
+    }
 
 }

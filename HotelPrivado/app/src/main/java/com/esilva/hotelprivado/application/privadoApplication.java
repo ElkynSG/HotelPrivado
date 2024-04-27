@@ -5,6 +5,7 @@ import static com.esilva.hotelprivado.Util.Constantes.CONNECT_BT;
 import static com.esilva.hotelprivado.Util.Constantes.REPORT_AUTO_OFF;
 import static com.esilva.hotelprivado.Util.Constantes.REP_AUTO;
 import static com.esilva.hotelprivado.Util.Constantes.SHA_BASE;
+import static com.esilva.hotelprivado.Util.Constantes.SHA_ID_TRANS;
 import static com.esilva.hotelprivado.Util.Constantes.TYPE_CONNECT;
 import static com.esilva.hotelprivado.Util.Constantes.USB_ID;
 import static com.esilva.hotelprivado.Util.Constantes.USB_NAME;
@@ -24,10 +25,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.util.Log;
 
 import com.esilva.hotelprivado.ServiceBroadcastReceiver;
+import com.esilva.hotelprivado.db.db_hotel;
 import com.hoho.android.usbserial.driver.UsbSerialPort;
 
 import java.util.Calendar;
@@ -88,6 +91,13 @@ public class privadoApplication extends Application {
         privadoApplication.USB_deviceID = USB_deviceID;
     }
 
+    public static void setSecuenciaTr(int secuenciaTransac) {
+        secuenciaTransac++;
+        if(secuenciaTransac>10000)
+            secuenciaTransac=0;
+        preferences.edit().putInt(SHA_ID_TRANS,secuenciaTransac).commit();
+    }
+
 
     @Override
     public void onCreate() {
@@ -108,6 +118,11 @@ public class privadoApplication extends Application {
         USB_deviceName = preferences.getString(USB_NAME,null);
         typeConnection = preferences.getBoolean(TYPE_CONNECT,CONNECT_BT);
         Log.v("aplicacion","ID USB "+ String.valueOf(USB_deviceID)+" Port "+String.valueOf(USB_port));
+
+        db_hotel dbHelper = new db_hotel(this, null);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        dbHelper.onCreate(db);
+        db.close();
     }
 
     private void configService(){

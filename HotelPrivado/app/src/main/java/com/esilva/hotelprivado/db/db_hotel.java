@@ -6,9 +6,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 
 public class db_hotel extends SQLiteOpenHelper {
-    private static final String name_db = "db_hotel";
+    private static final String name_db = "db_hotel_privado";
 
-    private static final int version = 1;
+    private static final int version = 3;
 
     //  TABLA  PRODUCTOS
     public static final String name_table = "product";
@@ -59,6 +59,11 @@ public class db_hotel extends SQLiteOpenHelper {
     public static final String VEN_TOTAL="total";
     public static final String VEN_TYPE="type_prod";
     public static final String VEN_RECIBO="recibo";
+    public static final String VEN_ID_PRODUCTO="id_producto";
+
+    //  TABLA  PENDIENTES
+    public static final String VEN_NAME_PEN_TABLE = "pendientes";
+    public static final String VEN_ID_TR="id_transac";
 
 
     public db_hotel(Context context, SQLiteDatabase.CursorFactory factory) {
@@ -67,7 +72,7 @@ public class db_hotel extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase BaseDeDatos) {
-        String base = "CREATE TABLE "+ name_table+"(" +
+        String base = "CREATE TABLE IF NOT EXISTS "+ name_table+"(" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 base_id              +" text, " +
                 base_name_ima        +" text, " +
@@ -81,13 +86,13 @@ public class db_hotel extends SQLiteOpenHelper {
                 base_num_arti_vendidos+" text)";
         BaseDeDatos.execSQL(base);
 
-        String baseUsuario = "CREATE TABLE "+ TABLE_USUARIO+"(" +
+        String baseUsuario = "CREATE TABLE IF NOT EXISTS "+ TABLE_USUARIO+"(" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 BASE_USUARIO                +" text, " +
                 BASE_CONTRASENA             +" text)";
         BaseDeDatos.execSQL(baseUsuario);
 
-        String reporte = "CREATE TABLE "+ INV_NAME_TABLE+"(" +
+        String reporte = "CREATE TABLE IF NOT EXISTS "+ INV_NAME_TABLE+"(" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 INV_NUM_APROB   +" text, " +
                 INV_FECHA       +" text, " +
@@ -102,7 +107,7 @@ public class db_hotel extends SQLiteOpenHelper {
                 INV_RECIBO      +" text)";
         BaseDeDatos.execSQL(reporte);
 
-        String ventas = "CREATE TABLE "+ VEN_NAME_TABLE+"(" +
+        String ventas = "CREATE TABLE IF NOT EXISTS "+ VEN_NAME_TABLE+"(" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 VEN_NUM_APROB   +" text, " +
                 VEN_FECHA       +" text, " +
@@ -114,8 +119,26 @@ public class db_hotel extends SQLiteOpenHelper {
                 VEN_HORA_TAB    +" text, " +
                 VEN_TOTAL       +" text, " +
                 VEN_TYPE        +" text, " +
-                VEN_RECIBO      +" text)";
+                VEN_RECIBO      +" text, " +
+                VEN_ID_PRODUCTO +" text)";
         BaseDeDatos.execSQL(ventas);
+
+        String pendientes = "CREATE TABLE IF NOT EXISTS "+ VEN_NAME_PEN_TABLE+"(" +
+                "ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                VEN_NUM_APROB   +" text, " +
+                VEN_FECHA       +" text, " +
+                VEN_COD_PROD    +" text, " +
+                VEN_NOM_PROD    +" text, " +
+                VEN_PRECIO      +" text, " +
+                VEN_CANTIDAD    +" text, " +
+                VEN_FECHA_TAB   +" text, " +
+                VEN_HORA_TAB    +" text, " +
+                VEN_TOTAL       +" text, " +
+                VEN_TYPE        +" text, " +
+                VEN_RECIBO      +" text, " +
+                VEN_ID_PRODUCTO +" text, " +
+                VEN_ID_TR       +" text)";
+        BaseDeDatos.execSQL(pendientes);
     }
 
     @Override

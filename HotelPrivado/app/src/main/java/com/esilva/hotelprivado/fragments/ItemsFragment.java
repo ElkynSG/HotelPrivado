@@ -10,6 +10,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -162,7 +165,8 @@ public class ItemsFragment extends Fragment {
 
         numArt = 1;
         numMaxArt = Integer.valueOf(dp.dt_num_articulos);
-        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext(),R.style.DialogTransparent);
+
         dp.setDt_num_articulos(String.valueOf(numArt));
 
 

@@ -34,6 +34,7 @@ public class Constants {
     public static final String JSON_NUM_CONFIR="Numero_confirmacion";
     public static final String JSON_NUM_FECHA="Fecha_hora";
     public static final String JSON_RECIBO="Numero_recibo";
+    public static final String JSON_ID_TR="id_transacion";
     public static final String JSON_MSM_ERROR="Mensaje_error";
 
     /////////////////////////////    printer     ///////////////////////////////////////////

@@ -18,6 +18,9 @@
         <item name="android:windowBackground">@color/transparente</item>
     </style>
 
+    <style name="DialogTransparent" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 
     <!-- http://stackoverflow.com/questions/1883425/android-borderless-dialog -->
     <style name="Theme_Dialog_Translucent" parent="android:Theme.Dialog">

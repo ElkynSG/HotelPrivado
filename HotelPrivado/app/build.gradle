@@ -8,10 +8,10 @@ android {
 
     defaultConfig {
         applicationId "com.esilva.hotelprivado"
-        minSdk 23
+        minSdk 26
         targetSdk 32
-        versionCode 3
-        versionName "1.06.00"
+        versionCode 5
+        versionName "1.08.00"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -48,6 +48,9 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.23'
+
+    implementation 'org.apache.poi:poi:5.2.4'
+    implementation 'org.apache.poi:poi-ooxml:5.2.4'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

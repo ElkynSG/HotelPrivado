@@ -9,14 +9,21 @@
     <color name="white">#FFFFFFFF</color>
     <color name="white2">#FFCCCCCC</color>
     <color name="white_bt">#AACCCCCC</color>
+    <color name="white_bt_press">#AAA39797</color>
     <color name="red">#bbcc0000</color>
     <color name="orange">#F35906</color>
+    <color name="bt_comprar">#EE0303</color>
+    <color name="bt_agregar">#5AD255</color>
 
 
     <color name="bt_alcohol">#aa49be25</color>
+    <color name="bt_alcohol_press">#AA3E8E26</color>
     <color name="bt_sin_alcohol">#aa96be25</color>
+    <color name="bt_sin_alcohol_press">#AA708A25</color>
     <color name="bt_snaks">#aa2596be</color>
+    <color name="bt_snaks_press">#AA27738E</color>
     <color name="bt_souvenirs">#aaFED67F</color>
+    <color name="bt_souvenirs_press">#AAAE9A71</color>
 
     <color name="transparente">#00000000</color>
 

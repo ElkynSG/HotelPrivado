@@ -21,7 +21,7 @@
             android:textColor="@color/white"
             android:textSize="30sp"
             android:textStyle="normal|bold"
-            android:background="#2A4F9E"/>
+            android:background="@drawable/baground_dialog"/>
 
     </LinearLayout>
 

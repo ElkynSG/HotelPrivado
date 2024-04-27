@@ -35,6 +35,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.esilva.hotelprivado.Util.Reporte;
@@ -146,9 +147,35 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 break;
         }
     }
+    private static final int PERMISSION_REQUEST_CODE = 100;
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void solicitarPermisos(){
 
+        String[] permissions = {
+                Manifest.permission.BLUETOOTH_SCAN,
+                Manifest.permission.BLUETOOTH_CONNECT,
+                Manifest.permission.BLUETOOTH,
+                Manifest.permission.BLUETOOTH_ADMIN,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.READ_CALENDAR,
+                Manifest.permission.WRITE_CALENDAR,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+        };
+
+        // Verificar si los permisos ya están otorgados
+        for (String permission : permissions) {
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                // Solicitar permisos que no han sido otorgados
+                ActivityCompat.requestPermissions(this, permissions, PERMISSION_REQUEST_CODE);
+               // return;
+            }
+        }
+
+        otrosPermisos();
+    }
+
+    private void otrosPermisos(){
         if (Build.VERSION.SDK_INT >= 30) {
             if (!Environment.isExternalStorageManager()) {
                 Intent getpermission = new Intent();

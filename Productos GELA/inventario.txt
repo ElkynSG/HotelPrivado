@@ -1,4 +1,5 @@
-﻿P10101,CERVEZA CLUB COLOMBIA .png,Club Colombia,Club Colombia,5900,Cerveza Dorada 330ml,Beer Dorada 330ml,1,15
+﻿Codigo,Nombre imagen, nombre espanol,nombre ingles,precio,detalle espano,detalle ingles,tipo producto,cantidad
+P10101,CERVEZA CLUB COLOMBIA .png,Club Colombia,Club Colombia,5900,Cerveza Dorada 330ml,Beer Dorada 330ml,1,15
 P10102,CERVEZA CORONA.png,Corona,Corona,6900,Cerveza 355ml,Beer 355ml,1,15
 P10103,CERVAZA COSTEÑITA.png,Costeñita,Costeñita,4900,Cerveza 175cc,Beer 175cc,1,15
 P10201,SMIRNOFF ICE GREEN.png,Smirnoff Ice Green Apple,Smirnoff Ice Green Apple,14900,Vodka Green Apple 25ml,Vodka Green Apple 25ml,1,15

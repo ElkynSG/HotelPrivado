@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         btMenu = findViewById(R.id.menu);
         btMenu.setOnClickListener(this);
-        countDownTimer = new CountDownTimer(10000,1000) {
+        countDownTimer = new CountDownTimer(2000,1000) {
             @Override
             public void onTick(long l) {
 
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(cone)
                     intent = new Intent(MainActivity.this,UsbActivity.class);
                 else
-                    intent = new Intent(MainActivity.this,BluetoothActivity.class);
+                    intent = new Intent(MainActivity.this,BluetoothSycActivity.class);
                 startActivity(intent);
                 finish();
             }

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0000"
+    android:focusable="false"
+    android:focusableInTouchMode="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:id="@+id/tv_mensaje"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:gravity="center"
+            android:text="Error"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="normal|bold"
+            android:background="@drawable/baground_dialog"/>
+
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/gifres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/loader"
+            android:gravity="center"/>
+
+        <TextView
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:id="@+id/tv_progreso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="progreso"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="normal|bold"
+            android:background="#0000"/>
+
+
+
+        <Button
+            android:id="@+id/btok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/baground_dialog"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"
+            android:textSize="30sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="20dp"
+            android:text="OK"/>
+
+
+        <ImageView
+            android:id="@+id/im_estado"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:gravity="center"
+            android:text=""
+            android:visibility="gone"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:textStyle="normal|bold"
+            android:src="@drawable/fail"
+            android:background="#0000"/>
+
+    </LinearLayout>
+
+
+
+
+
+
+</LinearLayout>

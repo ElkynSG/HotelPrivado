@@ -321,7 +321,7 @@ public class SaleBtActivity extends AppCompatActivity {
         if(device != null) {
             ClientClass clientClass = new ClientClass(device);
             clientClass.start();
-            checkConexionTerminal();
+            checkConexionTerminal(clientClass);
 
             //tv_state.setText("Connecting");
         }
@@ -345,8 +345,8 @@ public class SaleBtActivity extends AppCompatActivity {
             countDownTimer.cancel();
     }
 
-    private void checkConexionTerminal(){
-        CountDownTimer t = new CountDownTimer(10000, 1000) {
+    private void checkConexionTerminal(ClientClass clientClass){
+        CountDownTimer t = new CountDownTimer(12000, 1000) {
             @Override
             public void onTick(long l) {
                 Log.v("Conectando","check conexion");
@@ -355,8 +355,19 @@ public class SaleBtActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 if(stateConectionBt != STATE_CONNECTED){
+                    try {
+                        clientClass.socket.close();
+                        clientClass.interrupt();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     Cancel.setEnabled(true);
                     Toast.makeText(SaleBtActivity.this,R.string.sale_error_conect,Toast.LENGTH_LONG).show();
+                    pay.setEnabled(true);
+
+
+                    if(customDialog != null)
+                        customDialog.dismiss();
                 }
             }
         }.start();
@@ -724,7 +735,7 @@ public class SaleBtActivity extends AppCompatActivity {
             hora_tab = sdf2.format(resultdate);
 
             for (DataProduct product : miCArritoVentas) {
-                long val = adminBaseDatos.insertVentas(numAprobacion, fecha, product.dt_id_producto, product.dt_nombre_es, product.dt_precio, product.dt_num_articulos, fecha_tab, hora_tab, product.dt_type_product, recibo);
+                long val = adminBaseDatos.insertVentas(numAprobacion, fecha, product.dt_id_producto, product.dt_nombre_es, product.dt_precio, product.dt_num_articulos, fecha_tab, hora_tab, product.dt_type_product, recibo,product.dt_id_producto);
                 Log.d("DP_DLOG","guardaCarrito "+val);
             }
             adminBaseDatos.closeBaseDtos();

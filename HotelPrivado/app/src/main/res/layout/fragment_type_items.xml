@@ -15,7 +15,7 @@
         android:textSize="30dp"
         android:padding="10dp"
         android:textColor="@color/white"
-        android:background="@color/bt_alcohol"
+        android:background="@drawable/selector_alcohol"
 
         android:layout_marginHorizontal="@dimen/margin_horizon_type_item"
 
@@ -33,7 +33,7 @@
         android:textSize="30dp"
         android:padding="10dp"
         android:textColor="@color/white"
-        android:background="@color/bt_sin_alcohol"
+        android:background="@drawable/selector_sin_alcohol"
 
         android:layout_marginHorizontal="@dimen/margin_horizon_type_item"
 
@@ -50,7 +50,7 @@
         android:textSize="30dp"
         android:padding="10dp"
         android:textColor="@color/white"
-        android:background="@color/bt_snaks"
+        android:background="@drawable/selector_snacks"
         android:drawablePadding="10dp"
 
         android:layout_marginHorizontal="@dimen/margin_horizon_type_item"
@@ -68,7 +68,7 @@
         android:textSize="30dp"
         android:padding="10dp"
         android:textColor="@color/white"
-        android:background="@color/bt_souvenirs"
+        android:background="@drawable/selector_souvenir"
         android:drawablePadding="10dp"
 
         android:layout_marginHorizontal="@dimen/margin_horizon_type_item"

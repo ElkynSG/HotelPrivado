@@ -93,7 +93,9 @@ public class selectActivity extends AppCompatActivity implements TypeItemsFragme
         if(privadoApplication.getTypeConnection())
             intent = new Intent(this,SaleUSBActivity.class);
         else
-            intent = new Intent(this,SaleBtActivity.class);
+            intent = new Intent(this,SaleBtSycActivity.class);
+
+        //intent = new Intent(this,SaleBtActivity.class);
 
         tv_contador.setVisibility(View.GONE);
 
@@ -226,7 +228,7 @@ public class selectActivity extends AppCompatActivity implements TypeItemsFragme
     }
 
     private void showDialogSale(final int title){
-        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this,R.style.DialogTransparent);
         LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
         View dialog = inflater.inflate(R.layout.app_add_item, null);
         dialogBuilder.setView(dialog);
