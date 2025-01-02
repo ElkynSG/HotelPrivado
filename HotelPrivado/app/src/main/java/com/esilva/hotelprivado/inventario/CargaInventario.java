@@ -135,6 +135,8 @@ public class CargaInventario {
                 if(rowNum != null){
                     DataProduct dt = new DataProduct();
                     cell = rowNum.getCell(0);
+                    if(cell == null)
+                        break;
                     dt.dt_id_producto = cell.getStringCellValue().trim();
 
                     cell = rowNum.getCell(1);

@@ -203,7 +203,9 @@ public class BluetoothSycActivity extends AppCompatActivity implements View.OnCl
         logPendiente("Inicio y fin de ventas");
         ServerClass serverClass = new ServerClass();
         serverClass.start();
-        dataVentas.clearData();
+        if(dataVentas != null){
+            dataVentas.clearData();
+        }
         stateTrans = TR_ESPERANDO;
         stateProceso = 0;
     }
